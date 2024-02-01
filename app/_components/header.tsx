@@ -19,7 +19,6 @@ export const Header = () => {
 				<Button variant={'outline'} size={'icon'} className='size-8'>
 					<MenuIcon size={16} />
 				</Button>
-				
 			</Card>
 		</>
 	);
