@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { Barbershop } from '@prisma/client';
 
@@ -13,6 +16,13 @@ interface BarbershopItemProps {
 }
 
 export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
+
+	const router = useRouter();
+
+	const handleToBarbershop = () => {
+		router.push(`/barbershops/${barbershop.id}`);
+	};
+	
 	return (
 		<>
 			<Card className='min-w-48 max-w-48 p-1 rounded-xl group'>
@@ -37,7 +47,10 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 							<p className='text-sm text-gray-400'>{barbershop.address}</p>
 						</div>
 						
-						<Button variant='secondary' className='w-full mt-3 hover:bg-primary transition-all hover:transition-all'>
+						<Button 
+							variant='secondary' 
+							onClick={handleToBarbershop}
+							className='w-full mt-3 hover:bg-primary transition-all hover:transition-all'>
 							Reservar
 						</Button>
 					</div>
