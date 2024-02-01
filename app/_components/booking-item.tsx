@@ -12,7 +12,7 @@ export const BookingItem = () => {
 					<div className='flex flex-[3] flex-col gap-2 p-5'>
 						<Badge className='bg-[#221C3D] text-primary hover:bg-[#221C3D] w-fit'>Confirmado</Badge>
 
-						<h2 className='text-lg font-bold'>Corte de Cabelo</h2>
+						<h2 className='text-base sm:text-lg font-bold'>Corte de Cabelo</h2>
 						
 						<div className='flex text-center items-center gap-2'>
 							<Avatar className='size-8'>
@@ -20,7 +20,7 @@ export const BookingItem = () => {
 								<AvatarFallback>N/A</AvatarFallback>
 							</Avatar>
 
-							<h3>Vintage Barber</h3>
+							<h3 className='text-xs sm:text-base'>Vintage Barber</h3>
 						</div>
 					</div>
 

@@ -15,17 +15,17 @@ interface BarbershopItemProps {
 export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 	return (
 		<>
-			<Card className='min-w-48 max-w-48 p-1 rounded-xl'>
+			<Card className='min-w-48 max-w-48 p-1 rounded-xl group'>
 				<CardContent className='p-0'>
-					<div className='flex flex-[4] h-40 w-full relative'>
+					<div className='flex flex-[4] h-40 w-full relative overflow-hidden rounded-2xl'>
 						<Image 
 							fill
 							src={barbershop.imageUrl} 
 							alt={barbershop.name} 
-							className='rounded-2xl object-cover'
+							className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 						/>
 						
-						<Badge className='absolute top-2 left-2 flex gap-1 p-1 bg-purple-500/15 backdrop-blur-md'>
+						<Badge className='absolute top-2 left-2 flex gap-1 p-1 bg-purple-500/10 backdrop-blur-md'>
 							<StarIcon className='size-4 text-primary fill-primary' />
 							<span>5,0</span>
 						</Badge>
@@ -37,7 +37,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 							<p className='text-sm text-gray-400'>{barbershop.address}</p>
 						</div>
 						
-						<Button variant='secondary' className='w-full mt-3'>
+						<Button variant='secondary' className='w-full mt-3 hover:bg-primary transition-all hover:transition-all'>
 							Reservar
 						</Button>
 					</div>

@@ -113,8 +113,9 @@ async function seedDatabase() {
 				await prisma.service.create({
 					data: {
 						name: service.name,
-						description: service.description,
 						price: service.price,
+						imageUrl: service.imageUrl,
+						description: service.description,
 						barbershop: {
 							connect: {
 								id: barbershop.id,
