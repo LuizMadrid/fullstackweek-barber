@@ -6,7 +6,7 @@ import { MenuIcon } from 'lucide-react';
 
 export const Header = () => {
 	return (
-		<header className="justify-between flex items-center p-5 rounded-none bg-background border-b border-b-[#26272B]">
+		<header className="justify-between flex items-center p-5 rounded-none bg-background border-b border-secondary">
 			<Image 
 				src="/FSW Barber.png" 
 				alt="FSW Barber" 

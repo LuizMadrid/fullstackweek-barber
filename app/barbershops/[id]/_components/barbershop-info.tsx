@@ -46,7 +46,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 				</div>
 			</div>
 
-			<div className='flex flex-col gap-2 py-3 px-5 border-b border-secondary'>
+			<div className='flex flex-col gap-2 py-3 px-5 border-b border-secondary pb-6 mb-6'>
 				<h1 className='text-2xl font-semibold tracking-tight'>{barbershop.name}</h1>
     
 				<p className='flex gap-2 items-center text-sm'>
@@ -55,7 +55,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 				</p>
 				<p className='flex gap-2 items-center text-sm'>
 					<Star size={16} className='text-primary fill-primary' />
-      5.0 (889 avaliações)
+					5.0 (889 avaliações)
 				</p>
 			</div>
 		</>
