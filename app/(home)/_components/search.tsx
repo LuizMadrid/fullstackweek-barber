@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
 

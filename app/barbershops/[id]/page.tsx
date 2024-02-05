@@ -1,19 +1,18 @@
-import React from 'react';
-import { db } from '@/app/_lib/prisma';
+import prisma from '@/app/_lib/prisma';
 
 import { BarbershopInfo } from './_components/barbershop-info';
 import { ServiceItem } from './_components/service-item';
 import { Button } from '@/app/_components/ui/button';
 
 interface BarbershopPageProps {
-  params: {
-    id?: string;
-  };
+	params: {
+		id?: string;
+	};
 }
 
 const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 
-	const barbershop = await db.barbershop.findUnique({
+	const barbershop = await prisma.barbershop.findUnique({
 		where: {
 			id: params.id,
 		},
@@ -24,7 +23,7 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 
 	return (
 		<>
-			<BarbershopInfo barbershop={barbershop} />
+			{barbershop && <BarbershopInfo barbershop={barbershop} />}
 
 			<div className='flex flex-col gap-6'>
 				<div className='flex gap-3 px-5'>
@@ -38,7 +37,7 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 				</div>
 
 				<div className='flex flex-col gap-4 px-5'>
-					{barbershop.services.map((service:any) => (
+					{barbershop?.services.map((service) => (
 						<ServiceItem key={service.id} service={service} />
 					))}
 				</div>
