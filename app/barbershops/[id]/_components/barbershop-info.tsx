@@ -1,25 +1,15 @@
-'use client';
-
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { Barbershop } from '@prisma/client';
 
-import { Button } from '@/app/_components/ui/button';
-
-import { ChevronLeft, MenuIcon, MapPin, Star } from 'lucide-react';
+import { MapPin, Star } from 'lucide-react';
+import { HamburgerMenu } from '@/app/_components/hamburger-menu';
+import { BackToPage } from '@/app/_components/go-back';
 
 interface BarbershopDetailsProps {
   barbershop: Barbershop
 }
 
 export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
-
-	const router = useRouter();
-
-	const handleBack = () => {
-		router.back();
-	};
-	
 	return (
 		<>
 			<div className='h-64 w-full relative'>
@@ -31,17 +21,9 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 				/>
 
 				<div className='flex justify-between absolute top-2 w-full p-5'>
-					<Button 
-						variant={'secondary'} 
-						size={'icon'} 
-						onClick={handleBack}
-						className='size-8 hover:bg-primary'>
-						<ChevronLeft size={16} />
-					</Button>
+					<BackToPage />
 
-					<Button variant={'secondary'} size={'icon'} className='size-8 hover:bg-primary'>
-						<MenuIcon size={16} />
-					</Button>
+					<HamburgerMenu />
 				</div>
 			</div>
 

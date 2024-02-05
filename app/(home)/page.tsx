@@ -1,11 +1,12 @@
 import { format } from 'date-fns';
+import prisma from '../_lib/prisma';
 import { ptBR } from 'date-fns/locale';
 
 import { Search } from './_components/search';
 import { Header } from '../_components/header';
 import { BookingItem } from '../_components/booking-item';
 import { BarbershopItem } from './_components/barbershop-item';
-import prisma from '../_lib/prisma';
+import { WelcomeForUser } from './_components/welcome-user';
 
 export default async function Home() {
 
@@ -17,10 +18,9 @@ export default async function Home() {
 
 			<div className='flex flex-col gap-6'>
 				<div className='flex flex-col gap-2 pt-5 px-5'>
-					<div className='flex gap-2 text-xl font-bold'>
-						<span className='font-normal'>Olá,</span>
-						<h2>&apos;nome do usuário&apos;!</h2>
-					</div>
+
+					<WelcomeForUser />
+					
 					<p className='flex gap-1 capitalize'>
 						{format(new Date(), 'EEEE\',\' d', {
 							locale: ptBR,
