@@ -10,7 +10,7 @@ export const BackToPage = () => {
 	const router = useRouter();
 
 	const handleBack = () => {
-		router.back();
+		router.replace('/');
 	};
   
 	return (

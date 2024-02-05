@@ -1,14 +1,25 @@
+'use client';
+
 import Image from 'next/image';
 import { Service } from '@prisma/client';
 
 import { Card } from '@/app/_components/ui/card';
 import { Button } from '@/app/_components/ui/button';
+import { signIn } from 'next-auth/react';
 
 interface ServiceItemProps {
- service: Service 
+ service: Service
+ isAuth?: boolean
 }
 
-export const ServiceItem = ({ service }: ServiceItemProps) => {
+export const ServiceItem = ({ service , isAuth }: ServiceItemProps) => {
+
+	const handleReserveService = () => {
+		if (!isAuth) {
+			return signIn('google');
+		}
+	};
+	
 	return (
 		<>
 			<Card className='flex items-center gap-3 p-3 group max-w-md'>
@@ -39,6 +50,7 @@ export const ServiceItem = ({ service }: ServiceItemProps) => {
 
 						<Button 
 							variant={'secondary'}
+							onClick={handleReserveService}
 							className='font-bold hover:bg-primary transition-all hover:transition-all'>
 							Reservar
 						</Button>
