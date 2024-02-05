@@ -2,27 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 import { Button } from './ui/button';
-import { CalendarDays, Home, LogIn, LogOut, MenuIcon } from 'lucide-react';
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from './ui/sheet';
+import { SignInDialog } from './signin-dialog';
+import { SignOutDialog } from './signout-dialog';
+import { CalendarDays, Home, MenuIcon } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 
 export const HamburgerMenu = () => {
-
-	const handleLoginClick = async () => {
-		await signIn('google');
-	};
-
-	const handleLogoutClick = async () => {
-		await signOut();
-	};
 
 	const {data, status} = useSession();
 	
@@ -50,27 +38,19 @@ export const HamburgerMenu = () => {
 							height={40} 
 							className='rounded-full'
 						/>
-						<h2 className='text-base'>
+						<h2 className='text-base truncate'>
 							{data?.user ? data.user.name : 'Olá, faça seu login!'}
 						</h2>
 					</div>
 
 					{status === 'authenticated' && (
-						<Button variant={'secondary'} onClick={handleLogoutClick}>
-							<LogOut size={16} />
-						</Button>
+						<SignOutDialog />
 					)}
 				</div>
 
 				<div className='px-5'>
 					{status === 'unauthenticated' && (
-						<Button 
-							variant={'secondary'} 
-							onClick={handleLoginClick}
-							className='flex gap-2 justify-start items-center w-full rounded-lg mb-8'>
-							<LogIn size={16} />
-								Fazer Login!
-						</Button>
+						<SignInDialog />
 					)}
 
 					{status === 'authenticated' && (
