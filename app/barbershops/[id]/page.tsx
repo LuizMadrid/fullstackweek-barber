@@ -42,7 +42,7 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 
 				<div className='flex flex-col gap-4 px-5'>
 					{barbershop?.services.map((service) => (
-						<ServiceItem key={service.id} service={service} isAuth={!!session?.user} />
+						<ServiceItem key={service.id} barbershop={barbershop} service={service} isAuth={!!session?.user} />
 					))}
 				</div>
 			</div>
