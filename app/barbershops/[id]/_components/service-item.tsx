@@ -1,25 +1,27 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 import { format, setHours, setMinutes } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-import { Service, Barbershop } from '@prisma/client';
-import { SaveBooking } from '../_actions/save-booking';
+import { Service, Barbershop, Booking } from '@prisma/client';
+import { saveBooking } from '../_actions/save-booking';
 import { generateDayTimeList } from '../_helpers/hours';
 
 import { Button } from '@/app/_components/ui/button';
 import { Calendar } from '@/app/_components/ui/calendar';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Card, CardContent } from '@/app/_components/ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/app/_components/ui/dialog';
+import { Dialog, DialogContent } from '@/app/_components/ui/dialog';
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/app/_components/ui/sheet';
 
-import { FaCircleCheck, FaGithub, FaGoogle } from 'react-icons/fa6';
+import { FaCircleCheck } from 'react-icons/fa6';
 import { Loader2 } from 'lucide-react';
+import { SignInDialog } from '@/app/_components/signin-dialog';
+import { getDayBookings } from '../_actions/get-day-bookings';
 
 interface ServiceItemProps {
 	barbershop: Barbershop
@@ -36,13 +38,10 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 	const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 	const [isModalOpen, setIsModalOpen] = React.useState(false);
-	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
 	const [isUserAuth, setUserAuth] = React.useState(false);
+	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
+	const [haveDayBookings, setHaveDayBookings] = React.useState<Booking[]>([]);
 
-	const handleLoginGoogle = async () => {
-		await signIn('google');
-	};
-	
 	const handleReserveService = () => {
 		if (!isAuth) {
 			setUserAuth(true);
@@ -52,8 +51,29 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 	};
 
 	const timeList = useMemo(() => {
-		return date ? generateDayTimeList(date) : [];
-	}, [date]);
+		if (!date) {
+			return [];
+		}
+		
+		return generateDayTimeList(date).filter((time) => {
+
+			const timeHour = Number(time.split(':')[0]);
+			const timeMinute = Number(time.split(':')[1]);
+
+			const booking = haveDayBookings.find(booking => {
+				const bookingHour = booking.date.getHours();
+				const bookingMinute = booking.date.getMinutes();
+
+				return bookingHour === timeHour && bookingMinute === timeMinute;
+			});
+
+			if (!booking) {
+				return true;
+			}
+
+			return false;
+		});
+	}, [date, haveDayBookings]);
 
 	const handleSelectHour = (time: string) => {
 		setHour(time);
@@ -63,6 +83,20 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 		setDate(date);
 		setHour(undefined);
 	};
+
+	useEffect(() => {
+		if (!date) {
+			return;
+		}
+		
+		const refreshAvailableHours = async () => {
+			const dayBookings = await getDayBookings(barbershop.id, date);
+
+			setHaveDayBookings(dayBookings);
+		};
+
+		refreshAvailableHours();
+	}, [date, barbershop.id]);
 
 	const handleBookingSubmit = async () => {
 		setSubmitIsLoading(true);
@@ -76,7 +110,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 			const selectedDate = setMinutes(setHours(date, dateHour), dateMinute);
 
-			await SaveBooking({
+			await saveBooking({
 				serviceId: service.id,
 				barbershopId: barbershop.id,
 				date: selectedDate,
@@ -84,11 +118,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 			});
 
 			setIsSheetOpen(false);
-
 			setIsModalOpen(true);
-			// setTimeout(() => {
-			// 	setIsModalOpen(false);
-			// }, 4000);
 			setDate(undefined);
 			setHour(undefined);
 
@@ -159,11 +189,12 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 										<Button 
 											key={index}
 											onClick={() => handleSelectHour(time)}
-											className='text-sm font-bold rounded-full'
 											variant={
 												hour === time ? 'default' : 'outline'
-											}>
+											}
+											className='text-sm font-bold rounded-full'>
 											{time}
+											{/* TODO: caso não tiver mais nenhuma data disponível mostrar uma mensagem dizendo sem datas! */}
 										</Button>
 									))}
 								</div>
@@ -259,32 +290,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 					</Dialog>
 
 					<Dialog open={isUserAuth} onOpenChange={setUserAuth}>
-						<DialogContent className='flex flex-col justify-center items-center w-fit border-none rounded-lg'>
-							<DialogHeader>
-								<DialogTitle className='text-center'>Faça login na plataforma</DialogTitle>
-								<DialogDescription className='text-gray-400 text-center'>
-									Conecte-se usando conta do Google ou Github.
-								</DialogDescription>
-							</DialogHeader>
-
-							<div className='flex justify-between gap-4 w-full'>
-								<Button 
-									variant={'outline'} 
-									onClick={handleLoginGoogle}
-									className='flex gap-2 justify-center items-center font-bold w-full'>
-									<FaGoogle className='text-base text-white' />
-									Google
-								</Button>
-
-								<Button 
-									variant={'outline'} 
-									disabled
-									className='flex gap-2 justify-center items-center font-bold w-full'>
-									<FaGithub className='text-base text-white' />
-									Github
-								</Button>
-							</div>
-						</DialogContent>
+						<SignInDialog />
 					</Dialog>
 				</div>
 			</div>

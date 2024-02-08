@@ -9,7 +9,7 @@ interface SaveBookingProps {
   date: Date;
 }
 
-export const SaveBooking = async (params: SaveBookingProps) => {
+export const saveBooking = async (params: SaveBookingProps) => {
 	await prisma.booking.create({
 		data: {
 			barbershopId: params.barbershopId,

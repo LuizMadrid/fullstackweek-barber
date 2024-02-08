@@ -1,14 +1,17 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
 import { Button } from './ui/button';
 import { SignInDialog } from './signin-dialog';
 import { SignOutDialog } from './signout-dialog';
-import { CalendarDays, Home, MenuIcon } from 'lucide-react';
+
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Dialog, DialogTrigger } from './ui/dialog';
+
+import { CalendarDays, Home, LogIn, LogOut, MenuIcon } from 'lucide-react';
 
 export const HamburgerMenu = () => {
 
@@ -44,13 +47,32 @@ export const HamburgerMenu = () => {
 					</div>
 
 					{status === 'authenticated' && (
-						<SignOutDialog />
+						<Dialog>
+							<DialogTrigger asChild>
+								<Button variant={'secondary'}>
+									<LogOut size={16} />
+								</Button>
+							</DialogTrigger>
+							
+							<SignOutDialog />
+						</Dialog>
 					)}
 				</div>
 
 				<div className='px-5'>
 					{status === 'unauthenticated' && (
-						<SignInDialog />
+						<Dialog>
+							<DialogTrigger asChild>
+								<Button 
+									variant={'secondary'} 
+									className='flex gap-2 justify-start items-center w-full rounded-lg mb-8'>
+									<LogIn size={16} />
+									Fazer Login!
+								</Button>
+							</DialogTrigger>
+								
+							<SignInDialog />
+						</Dialog>
 					)}
 
 					{status === 'authenticated' && (
