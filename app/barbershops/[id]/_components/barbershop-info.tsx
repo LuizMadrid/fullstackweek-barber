@@ -20,7 +20,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 					className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 				/>
 
-				<div className='flex justify-between absolute top-2 w-full p-5'>
+				<div className='flex justify-between absolute top-0 w-full p-5'>
 					<BackToPage />
 
 					<HamburgerMenu />
