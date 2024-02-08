@@ -13,8 +13,12 @@ import { generateDayTimeList } from '../_helpers/hours';
 
 import { Button } from '@/app/_components/ui/button';
 import { Calendar } from '@/app/_components/ui/calendar';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Card, CardContent } from '@/app/_components/ui/card';
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/app/_components/ui/sheet';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/app/_components/ui/dialog';
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/app/_components/ui/sheet';
+
+import { FaCircleCheck, FaGithub, FaGoogle } from 'react-icons/fa6';
 import { Loader2 } from 'lucide-react';
 
 interface ServiceItemProps {
@@ -29,12 +33,22 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 	const [date, setDate] = React.useState<Date | undefined>(undefined);
 	const [hour, setHour] = React.useState<string | undefined>();
-	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
 
+	const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+	const [isModalOpen, setIsModalOpen] = React.useState(false);
+	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
+	const [isUserAuth, setUserAuth] = React.useState(false);
+
+	const handleLoginGoogle = async () => {
+		await signIn('google');
+	};
+	
 	const handleReserveService = () => {
 		if (!isAuth) {
-			return signIn('google');
+			setUserAuth(true);
+			return;
 		}
+		setIsSheetOpen(true);
 	};
 
 	const timeList = useMemo(() => {
@@ -68,6 +82,15 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 				date: selectedDate,
 				userId: (data?.user as any).id,
 			});
+
+			setIsSheetOpen(false);
+
+			setIsModalOpen(true);
+			// setTimeout(() => {
+			// 	setIsModalOpen(false);
+			// }, 4000);
+			setDate(undefined);
+			setHour(undefined);
 
 		} catch (error) {
 			console.error(error);
@@ -105,15 +128,13 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 						).format(Number(service.price))}
 					</span>	
 
-					<Sheet>
-						<SheetTrigger asChild>
-							<Button 
-								variant={'secondary'}
-								onClick={handleReserveService}
-								className='font-bold hover:bg-primary transition-all hover:transition-all'>
-								Reservar
-							</Button>
-						</SheetTrigger>
+					<Sheet open={isSheetOpen}	onOpenChange={setIsSheetOpen}>
+						<Button 
+							variant={'secondary'}
+							onClick={handleReserveService}
+							className='font-bold hover:bg-primary transition-all hover:transition-all'>
+							Reservar
+						</Button>
 
 						<SheetContent className='p-0'>
 							<SheetHeader className='text-left p-5 border-b border-secondary'>
@@ -204,6 +225,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 							<SheetFooter className='absolute bottom-0 w-full p-5'>
 								<Button 
 									onClick={handleBookingSubmit}
+									className='w-full'
 									disabled={(!date || !hour) || submitIsLoading}>
 									{submitIsLoading ? (
 										<p className='flex justify-center items-center gap-1'>
@@ -218,6 +240,52 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 						</SheetContent>
 					</Sheet>
+
+					<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+						<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
+							<FaCircleCheck className='text-primary h-20 w-20 my-2' />
+							<h2 className='text-lg font-semibold'>Reserva Efetuada!</h2>
+							<p className='text-gray-400 text-sm text-center'>Sua reserva foi agendada com sucesso.</p>
+
+							<DialogPrimitive.Close asChild>
+								<Button 
+									variant={'secondary'}
+									className='w-full font-bold hover:bg-primary transition-all hover:transition-all'>
+									Confirmar
+								</Button>
+							</DialogPrimitive.Close>
+
+						</DialogContent>
+					</Dialog>
+
+					<Dialog open={isUserAuth} onOpenChange={setUserAuth}>
+						<DialogContent className='flex flex-col justify-center items-center w-fit border-none rounded-lg'>
+							<DialogHeader>
+								<DialogTitle className='text-center'>Faça login na plataforma</DialogTitle>
+								<DialogDescription className='text-gray-400 text-center'>
+									Conecte-se usando conta do Google ou Github.
+								</DialogDescription>
+							</DialogHeader>
+
+							<div className='flex justify-between gap-4 w-full'>
+								<Button 
+									variant={'outline'} 
+									onClick={handleLoginGoogle}
+									className='flex gap-2 justify-center items-center font-bold w-full'>
+									<FaGoogle className='text-base text-white' />
+									Google
+								</Button>
+
+								<Button 
+									variant={'outline'} 
+									disabled
+									className='flex gap-2 justify-center items-center font-bold w-full'>
+									<FaGithub className='text-base text-white' />
+									Github
+								</Button>
+							</div>
+						</DialogContent>
+					</Dialog>
 				</div>
 			</div>
 		</Card> 
