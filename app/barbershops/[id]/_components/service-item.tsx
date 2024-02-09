@@ -132,7 +132,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 	};
 	
 	return (
-		<Card className='flex items-center gap-3 p-3 group max-w-md'>
+		<Card className='flex items-center max-w-md gap-3 p-3 group'>
 			<div className='flex flex-[2] size-32 relative overflow-hidden rounded-lg'>
 				<Image 
 					fill
@@ -146,9 +146,9 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 				<h2 className='font-bold tracking-tight'>{service.name}</h2>
 				<p className='text-sm text-gray-400'>{service.description}</p>
 
-				<div className='flex justify-between items-center mt-2'>
+				<div className='flex items-center justify-between mt-2'>
 					<span 
-						className='font-bold text-sm uppercase text-primary'>
+						className='text-sm font-bold uppercase text-primary'>
 						{Intl.NumberFormat(
 							'pt-BR',
 							{
@@ -162,12 +162,12 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 						<Button 
 							variant={'secondary'}
 							onClick={handleReserveService}
-							className='font-bold hover:bg-primary transition-all hover:transition-all'>
+							className='font-bold transition-all hover:bg-primary hover:transition-all'>
 							Reservar
 						</Button>
 
 						<SheetContent className='p-0'>
-							<SheetHeader className='text-left p-5 border-b border-secondary'>
+							<SheetHeader className='p-5 text-left border-b border-secondary'>
 								<SheetTitle>
 									Fazer Reserva
 								</SheetTitle>
@@ -203,11 +203,11 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 							{date && (
 								<Card className='m-6'>
 									<CardContent className='flex flex-col gap-4 px-2 py-4'>
-										<div className='flex justify-between items-center'>
+										<div className='flex items-center justify-between'>
 											<h2 className='font-semibold'>{service.name}</h2>
 
 											<h3 
-												className='font-semibold text-sm uppercase'>
+												className='text-sm font-semibold uppercase'>
 												{Intl.NumberFormat(
 													'pt-BR',
 													{
@@ -218,7 +218,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 											</h3>	
 										</div>
 
-										<div className='flex justify-between items-center'>
+										<div className='flex items-center justify-between'>
 											<h3 className='text-gray-400'>Data</h3>
 
 											<p className='flex gap-1 capitalize'>
@@ -234,7 +234,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 											</p>
 										</div>
 										
-										<div className='flex justify-between items-center'>
+										<div className='flex items-center justify-between'>
 											<h3 className='text-gray-400'>Horário</h3>
 
 											{hour ? (
@@ -244,7 +244,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 											)}
 										</div>
 
-										<div className='flex justify-between items-center'>
+										<div className='flex items-center justify-between'>
 											<h3 className='text-gray-400'>Barbearia</h3>
 
 											<p>{barbershop.name}</p>
@@ -259,8 +259,8 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 									className='w-full'
 									disabled={(!date || !hour) || submitIsLoading}>
 									{submitIsLoading ? (
-										<p className='flex justify-center items-center gap-1'>
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										<p className='flex items-center justify-center gap-1'>
+											<Loader2 className="w-4 h-4 mr-2 animate-spin" />
 											Carregando...
 										</p>
 									) : (
@@ -274,14 +274,14 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 					<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
 						<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
-							<FaCircleCheck className='text-primary h-20 w-20 my-2' />
+							<FaCircleCheck className='w-20 h-20 my-2 text-primary' />
 							<h2 className='text-lg font-semibold'>Reserva Efetuada!</h2>
-							<p className='text-gray-400 text-sm text-center'>Sua reserva foi agendada com sucesso.</p>
+							<p className='text-sm text-center text-gray-400'>Sua reserva foi agendada com sucesso.</p>
 
 							<DialogPrimitive.Close asChild>
 								<Button 
 									variant={'secondary'}
-									className='w-full font-bold hover:bg-primary transition-all hover:transition-all'>
+									className='w-full font-bold transition-all hover:bg-primary hover:transition-all'>
 									Confirmar
 								</Button>
 							</DialogPrimitive.Close>

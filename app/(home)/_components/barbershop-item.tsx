@@ -24,7 +24,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 	
 	return (
 		<>
-			<Card className='min-w-48 max-w-48 p-1 rounded-xl group'>
+			<Card className='p-1 min-w-48 sm:min-w-56 rounded-xl group'>
 				<CardContent className='p-0'>
 					<div className='flex flex-[4] h-40 w-full relative overflow-hidden rounded-2xl'>
 						<Image 
@@ -34,7 +34,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 							className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 						/>
 						
-						<Badge className='absolute top-2 left-2 flex gap-1 p-1 bg-purple-500/10 backdrop-blur-md'>
+						<Badge className='absolute flex gap-1 p-1 top-2 left-2 bg-purple-500/10 backdrop-blur-md'>
 							<StarIcon className='size-4 text-primary fill-primary' />
 							<span>5,0</span>
 						</Badge>
@@ -49,7 +49,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 						<Button 
 							variant='secondary' 
 							onClick={handleToBarbershop}
-							className='w-full mt-3 hover:bg-primary transition-all hover:transition-all'>
+							className='w-full mt-3 transition-all hover:bg-primary hover:transition-all'>
 							Reservar
 						</Button>
 					</div>

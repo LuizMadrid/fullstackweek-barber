@@ -10,15 +10,15 @@ export const BookingItem = () => {
 					<div className='flex flex-[3] flex-col gap-2 p-5'>
 						<Badge className='bg-[#221C3D] text-primary hover:bg-[#221C3D] w-fit'>Confirmado</Badge>
 
-						<h2 className='text-base sm:text-lg font-bold'>Corte de Cabelo</h2>
+						<h2 className='text-lg font-bold sm:text-xs 2md:text-lg'>Corte de Cabelo</h2>
 						
-						<div className='flex text-center items-center gap-2'>
+						<div className='flex items-center gap-2 text-center'>
 							<Avatar className='size-8'>
 								<AvatarImage src='https://utfs.io/f/0ddfbd26-a424-43a0-aaf3-c3f1dc6be6d1-1kgxo7.png' />
 								<AvatarFallback>N/A</AvatarFallback>
 							</Avatar>
 
-							<h3 className='text-xs sm:text-base'>Vintage Barber</h3>
+							<h3 className='text-base sm:text-xs 2md:text-base'>Vintage Barber</h3>
 						</div>
 					</div>
 

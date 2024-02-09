@@ -16,19 +16,19 @@ export const SignInDialog = () => {
 	};
 	
 	return (
-		<DialogContent className='flex flex-col justify-center items-center w-fit border-none rounded-lg'>
+		<DialogContent className='flex flex-col items-center justify-center border-none rounded-lg w-fit'>
 			<DialogHeader>
 				<DialogTitle className='text-center'>Faça login na plataforma</DialogTitle>
-				<DialogDescription className='text-gray-400 text-center'>
+				<DialogDescription className='text-center text-gray-400'>
 					Conecte-se usando conta do Google ou Github.
 				</DialogDescription>
 			</DialogHeader>
 
-			<div className='flex justify-between gap-4 w-full'>
+			<div className='flex justify-between w-full gap-4'>
 				<Button 
 					variant={'outline'} 
 					onClick={handleLoginGoogle}
-					className='flex gap-2 justify-center items-center font-bold w-full'>
+					className='flex items-center justify-center w-full gap-2 font-bold'>
 					<FaGoogle className='text-base text-white' />
 					Google
 				</Button>
@@ -36,7 +36,7 @@ export const SignInDialog = () => {
 				<Button 
 					variant={'outline'} 
 					disabled
-					className='flex gap-2 justify-center items-center font-bold w-full'>
+					className='flex items-center justify-center w-full gap-2 font-bold'>
 					<FaGithub className='text-base text-white' />
 					Github
 				</Button>

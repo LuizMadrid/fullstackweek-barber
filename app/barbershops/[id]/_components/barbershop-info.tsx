@@ -12,7 +12,7 @@ interface BarbershopDetailsProps {
 export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 	return (
 		<>
-			<div className='h-64 w-full relative'>
+			<div className='relative w-full h-64'>
 				<Image
 					fill
 					src={barbershop.imageUrl}
@@ -20,21 +20,21 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 					className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 				/>
 
-				<div className='flex justify-between absolute top-0 w-full p-5'>
+				<div className='absolute top-0 flex justify-between w-full p-5'>
 					<BackToPage />
 
 					<HamburgerMenu />
 				</div>
 			</div>
 
-			<div className='flex flex-col gap-2 py-3 px-5 border-b border-secondary pb-6 mb-6'>
+			<div className='flex flex-col gap-2 px-5 py-3 pb-6 mb-6 border-b border-secondary'>
 				<h1 className='text-2xl font-semibold tracking-tight'>{barbershop.name}</h1>
     
-				<p className='flex gap-2 items-center text-sm'>
+				<p className='flex items-center gap-2 text-sm'>
 					<MapPin size={16} className='text-primary fill-primary' />
 					{barbershop.address}
 				</p>
-				<p className='flex gap-2 items-center text-sm'>
+				<p className='flex items-center gap-2 text-sm'>
 					<Star size={16} className='text-primary fill-primary' />
 					5.0 (889 avaliações)
 				</p>

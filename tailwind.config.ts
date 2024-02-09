@@ -13,9 +13,6 @@ const config = {
 		container: {
 			center: true,
 			padding: '2rem',
-			screens: {
-				'2xl': '1400px',
-			},
 		},
 		extend: {
 			colors: {
@@ -67,14 +64,47 @@ const config = {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' },
 				},
+				'animate-arrow': {
+					'0%': { opacity: '0', transform: 'rotate(45deg) translate(-20px, -20px)' },
+					'50%': { opacity: '1' },
+					'100%': { opacity: '0', transform: 'rotate(45deg) translate(20px, 20px)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
+				'animate-arrow': 'animate-arrow 2.5s infinite',
 			},
+			screens: {
+				'minimal': '320px',
+				'2minimal': '375px',
+				
+				'xs': '480px',
+				'2xs': '560px',
+
+				'sm': '640px',
+				'2sm': '720px',
+
+				'md': '830px',
+				'2md': '960px',
+				
+				'lg': '1024px',
+				'2lg': '1280px',
+
+				'xl': '1440px',
+				'2xl': '1536px',
+				'3xl': '1920px',				
+			},
+			backgroundImage: {
+				'background-home-desktop': 'url(/background-fswbarber.jpeg)',
+			},
+			transitionDelay: {
+				'-delay1': '-250ms',
+				'-delay2': '-450ms',
+			}
 		},
 	},
-	plugins: ['prettier-plugin-tailwindcss', require('tailwindcss-animate')],
+	plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

@@ -3,7 +3,7 @@ import { HamburgerMenu } from './hamburger-menu';
 
 export const Header = () => {
 	return (
-		<header className="justify-between flex items-center p-5 rounded-none bg-background border-b border-secondary">
+		<header className="flex items-center justify-between p-5 border-b rounded-none bg-background border-secondary">
 			<Image 
 				src="/FSW Barber.png" 
 				alt="FSW Barber" 
