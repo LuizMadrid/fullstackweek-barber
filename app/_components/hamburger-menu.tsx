@@ -20,7 +20,7 @@ export const HamburgerMenu = () => {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button variant={'outline'} size={'icon'} className='size-8 hover:bg-primary'>
+				<Button variant={'secondary'} size={'icon'} className='size-8 hover:bg-primary'>
 					<MenuIcon size={16} />
 				</Button>
 			</SheetTrigger>

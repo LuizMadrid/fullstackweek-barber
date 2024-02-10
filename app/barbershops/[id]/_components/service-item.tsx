@@ -132,7 +132,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 	};
 	
 	return (
-		<Card className='flex items-center max-w-md gap-3 p-3 group'>
+		<Card className='flex items-center gap-3 p-3 group'>
 			<div className='flex flex-[2] size-32 relative overflow-hidden rounded-lg'>
 				<Image 
 					fill
