@@ -9,17 +9,33 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 import { Search } from './_components/search';
 import { Header } from '../_components/header';
-// import { BookingItem } from '../_components/booking-item';
+import { BookingItem } from '../_components/booking-item';
 import { BarbershopItem } from './_components/barbershop-item';
 import { WelcomeForUser } from './_components/welcome-user';
 
 import { ScrollArrowToRight } from '../_components/scroll-animate-arrow';
+import Link from 'next/link';
 
 export default async function Home() {
 
 	const session = await getServerSession(authOptions);
 	
-	const barbershops = await prisma.barbershop.findMany();
+	const [barbershops, confirmedBookings] = await Promise.all([
+		prisma.barbershop.findMany(),
+		
+		session?.user ? await prisma.booking.findMany({
+			where: {
+				userId: (session?.user as any).id,
+				date: {
+					gte: new Date(),
+				},
+			},
+			include: {
+				service: true,
+				barbershop: true,
+			},
+		}) : Promise.resolve([])
+	]);
 	
 	return (
 		<>
@@ -60,10 +76,20 @@ export default async function Home() {
 
 
 							{session?.user && (
-								<div className='flex flex-col max-w-xl gap-2 px-5 lg:px-0'>
-									<h2 className='text-lg text-gray-400 uppercase sm:text-sm'>Agendamentos</h2>
-									{/* <BookingItem /> */}
-								</div>
+								<Link 
+									href={'/bookings'} 
+									prefetch={true}
+									className='relative flex flex-col gap-2 px-5 lg:px-0 max-w-xl'>
+									<h2 className='text-lg text-gray-400 uppercase sm:text-sm'>Agendamentos confirmados</h2>
+									<div className='flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+										{confirmedBookings.map((booking) => (
+											<div key={booking.id} className='min-w-full'>
+												<BookingItem booking={booking} />
+											</div>
+										))}
+									</div>
+									<ScrollArrowToRight className='hidden lg:block' />
+								</Link>
 							)}
 						</div>
 

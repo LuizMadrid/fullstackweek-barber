@@ -5,25 +5,39 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 
 import { Header } from '../_components/header';
 import { BookingItem } from '../_components/booking-item';
-import { isFuture, isPast } from 'date-fns';
 
 const BookingsPage = async () => {
 
 	const session = await getServerSession(authOptions);
 
-	const bookings = await prisma.booking.findMany({
-		where: {
-			userId: (session?.user as any).id,
-		},
-		include: {
-			service: true,
-			barbershop: true,
-		},
-	});
+	const [confirmedBookings, finishedBookings] = await Promise.all([
+		prisma.booking.findMany({
+			where: {
+				userId: (session?.user as any).id,
+				date: {
+					gte: new Date(),
+				},
+			},
+			include: {
+				service: true,
+				barbershop: true,
+			},
+		}),
+		
+		prisma.booking.findMany({
+			where: {
+				userId: (session?.user as any).id,
+				date: {
+					lt: new Date(),
+				},
+			},
+			include: {
+				service: true,
+				barbershop: true,
+			},
+		})
+	]);
 
-	const confirmedBookings = bookings.filter(booking => isFuture(booking.date)); 
-	const finishedBookings = bookings.filter(booking => isPast(booking.date)); 
-  
 	return (
 		<>
 			<Header />
@@ -33,7 +47,7 @@ const BookingsPage = async () => {
 				<div className='mt-7'>
 					<h2 className='text-sm text-gray-400 uppercase sm:text-base'>Confirmados</h2>
 
-					<div className='mt-4 space-y-4 md:space-x-4 md:grid md:grid-cols-2 xl:grid-cols-3'>
+					<div className='mt-4 space-y-4'>
 						{confirmedBookings.map((booking) => (
 							<BookingItem key={booking.id} booking={booking} />
 						))}
