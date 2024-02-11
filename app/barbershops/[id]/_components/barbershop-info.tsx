@@ -24,13 +24,13 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 					fill
 					src={barbershop.imageUrl}
 					alt={barbershop.name}
-					className='object-cover sm:pt-10 lg:pt-0 rounded-xl'
+					className='object-fill sm:pt-10 lg:pt-0 rounded-xl'
 				/>
 			</div>
 
-			<div className='flex flex-col gap-2 sm:flex-row sm:justify-between px-5 py-3 pb-6 mb-6 border-b border-secondary lg:border-transparent'>
+			<div className='flex flex-col gap-2 px-5 py-3 pb-6 mb-6 border-b sm:flex-row sm:justify-between border-secondary lg:border-transparent'>
 				<div className='flex flex-col gap-2'>
-					<h1 className='text-2xl sm:text-4xl font-semibold tracking-tight'>{barbershop.name}</h1>
+					<h1 className='text-2xl font-semibold tracking-tight sm:text-4xl'>{barbershop.name}</h1>
     
 					<p className='flex items-center gap-2 text-sm sm:text-base'>
 						<MapPin size={16} className='text-primary fill-primary' />
@@ -39,7 +39,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 				</div>
 
 				<div className='flex items-center gap-2 sm:bg-secondary/70 sm:py-2 sm:px-4 sm:rounded-xl sm:flex-col'>
-					<p className='text-sm sm:text-base sm:scale-125 flex items-center gap-1'>
+					<p className='flex items-center gap-1 text-sm sm:text-base sm:scale-125'>
 						<Star size={16} className='text-primary fill-primary' />
 						5.0
 					</p>

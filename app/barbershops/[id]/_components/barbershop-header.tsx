@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -13,13 +14,25 @@ import { Button } from '@/app/_components/ui/button';
 import { CalendarDays, UserCircle2Icon } from 'lucide-react';
 import { Dialog, DialogTrigger } from '@/app/_components/ui/dialog';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
+import { useRouter } from 'next/navigation';
 
 export const BarbershopHeader = () => {
 
+	const [isUserAuth, setUserAuth] = React.useState(false);
+	
 	const {data, status} = useSession();
+	const router = useRouter();
+
+	const handleToBookings = () => {
+		if (isUserAuth) {
+			router.push('/bookings');
+		} else {
+			setUserAuth(true);
+		}
+	};
   
 	return (
-		<div className='absolute top-0 w-full p-5 z-50 lg:px-32 sm:bg-background sm:border-b sm:border-secondary sm:static'>
+		<div className='absolute top-0 z-50 w-full p-5 lg:px-32 sm:bg-background sm:border-b sm:border-secondary sm:static'>
 			<div className='flex justify-between sm:hidden'>
 				<BackToPage />
 
@@ -44,21 +57,20 @@ export const BarbershopHeader = () => {
 					<Search />
 				</div>
 
-				<div className='hidden lg:flex lg:gap-1'>
-					<Link href={'/bookings'} prefetch={true}>
-						<Button 
-							variant={'ghost'} 
-							className='flex items-center justify-start w-full gap-2'>
-							<CalendarDays size={16} />
+				<div className='hidden lg:flex lg:gap-2'>
+					<Button 
+						variant={'ghost'} 
+						onClick={handleToBookings}
+						className='flex items-center justify-start gap-2'>
+						<CalendarDays size={16} />
                 Agendamentos
-						</Button>
-					</Link>
+					</Button>
 
 					{status === 'unauthenticated' && (
-						<Dialog>
+						<Dialog open={isUserAuth} onOpenChange={setUserAuth}>
 							<DialogTrigger asChild>
 								<Button 
-									className='flex items-center justify-start w-full gap-2 rounded-lg'>
+									className='flex items-center justify-start gap-2 rounded-lg'>
 									<UserCircle2Icon size={16} />
                     Perfil
 								</Button>
@@ -71,7 +83,7 @@ export const BarbershopHeader = () => {
 					{status === 'authenticated' && (
 						<Dialog>
 							<DialogTrigger asChild>
-								<div className='flex items-center gap-2 cursor-pointer hover:bg-secondary/70 rounded-md px-4'>
+								<div className='flex items-center gap-2 px-4 rounded-md cursor-pointer hover:bg-secondary/70'>
 									<Image
 										src={data?.user?.image ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} 
 										alt={data?.user?.name ?? 'Erro ao carregar imagem!'} 

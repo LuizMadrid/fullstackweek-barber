@@ -135,10 +135,11 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 		<Card className='flex items-center gap-3 p-3 group'>
 			<div className='flex flex-[2] size-32 relative overflow-hidden rounded-lg'>
 				<Image 
-					fill
+					width={128}
+					height={128}
 					src={service.imageUrl} 
 					alt={service.name} 
-					className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
+					className='object-fill transition-all group-hover:scale-105 group-hover:transition-all'
 				/>
 			</div>
 

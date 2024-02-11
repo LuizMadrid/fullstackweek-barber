@@ -31,7 +31,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 							fill
 							src={barbershop.imageUrl} 
 							alt={barbershop.name} 
-							className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
+							className='object-fill transition-all group-hover:scale-105 group-hover:transition-all'
 						/>
 						
 						<Badge className='absolute flex gap-1 p-1 top-2 left-2 bg-purple-500/10 backdrop-blur-md'>
