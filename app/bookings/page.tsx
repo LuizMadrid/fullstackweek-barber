@@ -1,10 +1,10 @@
 import prisma from '../_lib/prisma';
-import { getServerSession } from 'next-auth';
 
+import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 
 import { Header } from '../_components/header';
-import { BookingItem } from '../_components/booking-item';
+import { BookingsSheet } from './_components/booking-list';
 
 const BookingsPage = async () => {
 
@@ -35,34 +35,33 @@ const BookingsPage = async () => {
 				service: true,
 				barbershop: true,
 			},
-		})
+		}),
 	]);
 
 	return (
 		<>
 			<Header />
-			<div className='px-5 py-6 md:flex md:flex-col md:flex-1'>
+			<div className='px-5 py-6 h-[calc(100vh-222px)] md:flex md:flex-col lg:px-32'>
 				<h1 className='text-2xl font-semibold'>Agendamentos</h1>
 
-				<div className='mt-7'>
-					<h2 className='text-sm text-gray-400 uppercase sm:text-base'>Confirmados</h2>
+				{confirmedBookings.length === 0 && finishedBookings.length === 0 ? (
+					<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos confirmado nem finalizado.</p>
+				) : (
+					<>
+						{confirmedBookings.length === 0 ? (
+							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos confirmados.</p>
+						) : (
+							<BookingsSheet bookings={confirmedBookings} title='Confirmados' />
+						)}
 
-					<div className='mt-4 space-y-4'>
-						{confirmedBookings.map((booking) => (
-							<BookingItem key={booking.id} booking={booking} />
-						))}
-					</div>
-				</div>
+						{finishedBookings.length === 0 ? (
+							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos finalizados.</p>
+						) : (
+							<BookingsSheet bookings={finishedBookings} title='Finalizados' />
+						)}
+					</>
+				)}
 
-				<div className='mt-7'>
-					<h2 className='text-sm text-gray-400 uppercase sm:text-base'>Finalizados</h2>
-
-					<div className='mt-4 space-y-4'>
-						{finishedBookings.map((booking) => (
-							<BookingItem key={booking.id} booking={booking} />
-						))}
-					</div>
-				</div>
 			</div>
 		</>
 	);

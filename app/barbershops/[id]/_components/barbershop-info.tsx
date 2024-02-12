@@ -24,7 +24,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 					fill
 					src={barbershop.imageUrl}
 					alt={barbershop.name}
-					className='object-fill sm:pt-10 lg:pt-0 rounded-xl'
+					className='object-cover sm:pt-10 lg:pt-0 rounded-xl'
 				/>
 			</div>
 

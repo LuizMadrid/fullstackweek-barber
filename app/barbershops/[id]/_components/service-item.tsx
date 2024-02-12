@@ -1,27 +1,27 @@
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import { format, setHours, setMinutes } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { format, setHours, setMinutes } from 'date-fns';
 
+import { saveBooking } from './actions/save-booking';
+import { generateDayTimeList } from './helpers/hours';
+import { getDayBookings } from './actions/get-day-bookings';
 import { Service, Barbershop, Booking } from '@prisma/client';
-import { saveBooking } from '../_actions/save-booking';
-import { generateDayTimeList } from '../_helpers/hours';
 
 import { Button } from '@/app/_components/ui/button';
 import { Calendar } from '@/app/_components/ui/calendar';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Card, CardContent } from '@/app/_components/ui/card';
-import { Dialog, DialogContent } from '@/app/_components/ui/dialog';
+import { SignInDialog } from '@/app/_components/signin-dialog';
+import { Dialog, DialogClose, DialogContent } from '@/app/_components/ui/dialog';
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/app/_components/ui/sheet';
 
-import { FaCircleCheck } from 'react-icons/fa6';
 import { Loader2 } from 'lucide-react';
-import { SignInDialog } from '@/app/_components/signin-dialog';
-import { getDayBookings } from '../_actions/get-day-bookings';
+import { FaCircleCheck } from 'react-icons/fa6';
+
 
 interface ServiceItemProps {
 	barbershop: Barbershop
@@ -75,14 +75,14 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 		});
 	}, [date, haveDayBookings]);
 
-	const handleSelectHour = (time: string) => {
+	const handleSelectHour = useCallback((time: string) => {
 		setHour(time);
-	};
+	}, []);
 
-	const handleSelectDate = (date: Date | undefined) => {
+	const handleSelectDate = useCallback((date: Date | undefined) => {
 		setDate(date);
 		setHour(undefined);
-	};
+	}, []);
 
 	useEffect(() => {
 		if (!date) {
@@ -279,13 +279,13 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 							<h2 className='text-lg font-semibold'>Reserva Efetuada!</h2>
 							<p className='text-sm text-center text-gray-400'>Sua reserva foi agendada com sucesso.</p>
 
-							<DialogPrimitive.Close asChild>
+							<DialogClose asChild>
 								<Button 
 									variant={'secondary'}
 									className='w-full font-bold transition-all hover:bg-primary hover:transition-all'>
 									Confirmar
 								</Button>
-							</DialogPrimitive.Close>
+							</DialogClose>
 
 						</DialogContent>
 					</Dialog>

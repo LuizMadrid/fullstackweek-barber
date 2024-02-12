@@ -50,9 +50,9 @@ export default async function Home() {
 						className='hidden object-cover object-left-top -z-10 lg:block lg:opacity-30'
 					/>
 					
-					<div className='flex flex-col gap-12 sm:flex-row sm:pt-5 lg:py-16 lg:px-32'>
+					<div className='flex flex-col gap-12 2md:flex-row sm:pt-5 lg:py-16 lg:px-32'>
 
-						<div className='flex flex-col justify-between space-y-4 flex-[4]'>
+						<div className='flex flex-col justify-between space-y-4 flex-[4] 2md:max-w-[500px]'>
 							<div className='space-y-8'>
 								<div className='px-5 pt-5 space-y-2 sm:pt-0 lg:px-0'>
 
@@ -79,16 +79,23 @@ export default async function Home() {
 								<Link 
 									href={'/bookings'} 
 									prefetch={true}
-									className='relative flex flex-col gap-2 px-5 lg:px-0 max-w-xl'>
+									className='relative flex flex-col gap-2 px-5 lg:px-0 max-w-fit 2md:min-w-fit'>
 									<h2 className='text-lg text-gray-400 uppercase sm:text-sm'>Agendamentos confirmados</h2>
+
 									<div className='flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
-										{confirmedBookings.map((booking) => (
-											<div key={booking.id} className='min-w-full'>
-												<BookingItem booking={booking} />
-											</div>
-										))}
+										{confirmedBookings.length === 0 ? (
+											<p className='text-center mt-5 uppercase text-gray-400 tracking-wide p-6 bg-background border border-secondary/70 rounded-lg'>Você não possui agendamentos confirmados.</p>
+										) : (
+											<>
+												{confirmedBookings.map((booking) => (
+													<div key={booking.id} className='min-w-full'>
+														<BookingItem booking={booking} />
+													</div>
+												))}
+												<ScrollArrowToRight className='hidden lg:block z-50' />
+											</>
+										)}
 									</div>
-									<ScrollArrowToRight className='hidden lg:block' />
 								</Link>
 							)}
 						</div>
