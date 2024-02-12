@@ -17,7 +17,7 @@ import { format, isPast } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import { Loader2 } from 'lucide-react';
-import { Dialog, DialogClose, DialogContent } from './ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
 import { FaCircleCheck } from 'react-icons/fa6';
 
 interface BookingItemProps {
@@ -35,14 +35,20 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 
 	const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 	const [isModalOpen, setIsModalOpen] = React.useState(false);
+	const [isConfirming, setIsConfirming] = React.useState(false);
 	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
 
+	const handleOpenConfirm = () => {
+		setIsConfirming(true);
+	};
+	
 	const handleCancelBooking = async () => {
 		setSubmitIsLoading(true);
+		setIsSheetOpen(false);
 		try {
 			await CancelBooking(booking.id);
 
-			setIsSheetOpen(false);
+			setIsConfirming(false);
 			setIsModalOpen(true);
 		} catch (error) {
 			console.error(error);
@@ -192,38 +198,55 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 
 						<Button 
 							variant={'destructive'}
+							onClick={handleOpenConfirm}
+							className={isBookingPast ? 'hidden' : 'w-full'}>
+							Cancelar reserva
+						</Button>
+					</SheetFooter>
+				</SheetContent>
+			</Sheet>
+
+			<Dialog open={isConfirming} onOpenChange={setIsConfirming}>
+				<DialogContent className='flex flex-col items-center justify-center border-none rounded-lg w-fit'>
+					<DialogHeader className='space-y-4'>
+						<DialogTitle className='text-center capitalize'>Cancelar Reserva</DialogTitle>
+						<DialogDescription className='text-center text-gray-400'>
+							Tem certeza que deseja cancelar esse agendamento? <br /> Essa ação não poderá ser desfeita.
+						</DialogDescription>
+					</DialogHeader>
+
+					<div className='flex justify-between w-full gap-4'>
+						<DialogClose asChild>
+							<Button 
+								variant={'secondary'}
+								className='flex items-center justify-center w-full gap-2 font-bold min-w-32'>
+								Voltar
+							</Button>
+						</DialogClose>
+
+						<Button 
+							variant={'destructive'}
 							onClick={handleCancelBooking}
-							className={isBookingPast ? 'hidden' : 'w-full'}
-							disabled={
-								submitIsLoading
-							}>
+							className='flex items-center justify-center w-full gap-2 font-bold min-w-32'
+							disabled={submitIsLoading}>
 							{submitIsLoading ? (
 								<p className='flex items-center justify-center gap-1'>
 									<Loader2 className="w-4 h-4 mr-2 animate-spin" />
 									Carregando...
 								</p>
 							) : (
-								<p>Confirmar</p>
+								<p>Cancelar</p>
 							)}
 						</Button>
-					</SheetFooter>
-				</SheetContent>
-			</Sheet>
+					</div>
+				</DialogContent>
+			</Dialog>
 
 			<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
 				<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
 					<FaCircleCheck className='w-20 h-20 my-2 text-primary' />
 					<h2 className='text-lg font-semibold'>Reserva Cancelada!</h2>
 					<p className='text-sm text-center text-gray-400'>Sua reserva foi cancelada com sucesso.</p>
-
-					<DialogClose asChild>
-						<Button 
-							variant={'secondary'}
-							className='w-full font-bold transition-all hover:bg-primary hover:transition-all'>
-							Confirmar
-						</Button>
-					</DialogClose>
-
 				</DialogContent>
 			</Dialog>
 		</>

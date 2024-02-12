@@ -10,5 +10,6 @@ export const CancelBooking =  async (bookingId: string) => {
 		},
 	});
 
+	revalidatePath('/');
 	revalidatePath('/bookings');
 };

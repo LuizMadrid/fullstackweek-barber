@@ -14,7 +14,6 @@ import { BarbershopItem } from './_components/barbershop-item';
 import { WelcomeForUser } from './_components/welcome-user';
 
 import { ScrollArrowToRight } from '../_components/scroll-animate-arrow';
-import Link from 'next/link';
 
 export default async function Home() {
 
@@ -69,17 +68,14 @@ export default async function Home() {
 									</p>
 								</div>
 
-								<div className='max-w-xl px-5 lg:px-0'>
+								<div className='px-5 lg:px-0'>
 									<Search />
 								</div>
 							</div>
 
 
 							{session?.user && (
-								<Link 
-									href={'/bookings'} 
-									prefetch={true}
-									className='relative flex flex-col gap-2 px-5 lg:px-0 max-w-fit 2md:min-w-fit'>
+								<div className='relative flex flex-col gap-2 px-5 lg:px-0'>
 									<h2 className='text-lg text-gray-400 uppercase sm:text-sm'>Agendamentos confirmados</h2>
 
 									<div className='flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
@@ -88,15 +84,13 @@ export default async function Home() {
 										) : (
 											<>
 												{confirmedBookings.map((booking) => (
-													<div key={booking.id} className='min-w-full'>
-														<BookingItem booking={booking} />
-													</div>
+													<BookingItem key={booking.id} booking={booking} />
 												))}
 												<ScrollArrowToRight className='hidden lg:block z-50' />
 											</>
 										)}
 									</div>
-								</Link>
+								</div>
 							)}
 						</div>
 
