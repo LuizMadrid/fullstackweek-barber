@@ -15,7 +15,7 @@ export const WelcomeForUser = () => {
 			)}
 
 			{status === 'authenticated' && (
-				<h2>{data?.user?.name}!</h2>
+				<h2>{data?.user?.name?.split(' ')[0]}!</h2>
 			)}
 		</div>
 	);
