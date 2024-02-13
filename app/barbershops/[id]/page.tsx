@@ -1,12 +1,13 @@
 import prisma from '@/app/_lib/prisma';
-
-import { BarbershopInfo } from './_components/barbershop-info';
-import { ServiceItem } from './_components/service-item';
-import { Button } from '@/app/_components/ui/button';
+import { authOptions } from '@/app/_lib/auth';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
+import { Button } from '@/app/_components/ui/button';
+import { ServiceItem } from './_components/service-item';
+import { BarbershopInfo } from './_components/barbershop-info';
 import { BarbershopHeader } from './_components/barbershop-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/_components/ui/card';
+
 
 interface BarbershopPageProps {
 	params: {

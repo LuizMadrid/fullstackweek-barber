@@ -1,7 +1,7 @@
 import prisma from '../_lib/prisma';
 
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '../_lib/auth';
 
 import { Header } from '../_components/header';
 import { BookingsSheet } from './_components/booking-list';

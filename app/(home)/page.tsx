@@ -5,7 +5,7 @@ import prisma from '../_lib/prisma';
 import { ptBR } from 'date-fns/locale';
 
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '../_lib/auth';
 
 import { Search } from './_components/search';
 import { Header } from '../_components/header';
