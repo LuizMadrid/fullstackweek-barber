@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import prisma from '../_lib/prisma';
 
 import { getServerSession } from 'next-auth';
@@ -5,6 +6,10 @@ import { authOptions } from '../_lib/auth';
 
 import { Header } from '../_components/header';
 import { BookingsSheet } from './_components/booking-list';
+
+export const metadata: Metadata = {
+	title: 'Agendamentos',
+};
 
 const BookingsPage = async () => {
 

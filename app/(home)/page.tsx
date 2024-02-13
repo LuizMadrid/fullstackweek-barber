@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 import { format } from 'date-fns';
 import prisma from '../_lib/prisma';
@@ -14,6 +15,10 @@ import { BarbershopItem } from './_components/barbershop-item';
 import { WelcomeForUser } from './_components/welcome-user';
 
 import { ScrollArrowToRight } from '../_components/scroll-animate-arrow';
+
+export const metadata: Metadata = {
+	title: 'Home',
+};
 
 export default async function Home() {
 

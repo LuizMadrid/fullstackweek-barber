@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import prisma from '@/app/_lib/prisma';
 import { authOptions } from '@/app/_lib/auth';
 import { getServerSession } from 'next-auth';
@@ -8,6 +10,9 @@ import { BarbershopInfo } from './_components/barbershop-info';
 import { BarbershopHeader } from './_components/barbershop-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/_components/ui/card';
 
+export const metadata: Metadata = {
+	title: 'Barbearias',
+};
 
 interface BarbershopPageProps {
 	params: {
