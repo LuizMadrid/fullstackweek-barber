@@ -54,23 +54,31 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 		if (!date) {
 			return [];
 		}
-		
+	
+		const now = new Date(); // data atual do dispositivo do usuário.
+	
 		return generateDayTimeList(date).filter((time) => {
-
 			const timeHour = Number(time.split(':')[0]);
 			const timeMinute = Number(time.split(':')[1]);
-
+	
+			// se a data for a data atual e o horário for anterior ao horário atual, vai removê-lo da lista. (implementação minha)
+			if (date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
+				if (now.getHours() > timeHour || (now.getHours() === timeHour && now.getMinutes() > timeMinute)) {
+					return false;
+				}
+			}
+	
 			const booking = haveDayBookings.find(booking => {
 				const bookingHour = booking.date.getHours();
 				const bookingMinute = booking.date.getMinutes();
-
+	
 				return bookingHour === timeHour && bookingMinute === timeMinute;
 			});
-
+	
 			if (!booking) {
 				return true;
 			}
-
+	
 			return false;
 		});
 	}, [date, haveDayBookings]);
@@ -186,18 +194,19 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 
 							{date && (
 								<div className='flex gap-3 overflow-x-auto py-6 px-5 border-b border-secondary [&::-webkit-scrollbar]:hidden'>
-									{timeList.map((time, index) => (
-										<Button 
-											key={index}
-											onClick={() => handleSelectHour(time)}
-											variant={
-												hour === time ? 'default' : 'outline'
-											}
-											className='text-sm font-bold rounded-full'>
-											{time}
-											{/* TODO: caso não tiver mais nenhuma data disponível mostrar uma mensagem dizendo sem datas! */}
-										</Button>
-									))}
+									{timeList.length > 0 ? (
+										timeList.map((time, index) => (
+											<Button 
+												key={index}
+												onClick={() => handleSelectHour(time)}
+												variant={hour === time ? 'default' : 'outline'}
+												className='text-sm font-bold rounded-full'>
+												{time}
+											</Button>
+										))
+									) : (
+										<p className='text-gray-400 uppercase text-center mx-auto py-2'>Sem datas disponíveis!</p>
+									)}
 								</div>
 							)}
 							

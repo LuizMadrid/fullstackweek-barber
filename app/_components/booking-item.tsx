@@ -117,15 +117,15 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 							/>
 
 							<div className='absolute flex items-end px-5 w-full h-full bg-gradient-to-t from-transparent to-background'>
-								<Card className='w-full h-fit mb-4'>
-									<CardContent className='flex justify-start items-center gap-4 py-2 px-5'>
-										<Avatar className='size-14'>
+								<Card className='w-fit h-fit mb-4 mx-auto'>
+									<CardContent className='flex justify-center items-center gap-4 p-2'>
+										<Avatar className='size-8 md:size-12'>
 											<AvatarImage src={booking.barbershop.imageUrl ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} />
 										</Avatar>
 										
 										<div className='flex flex-col'>
-											<h3 className='text-lg font-semibold text-white truncate'>{booking.barbershop.name}</h3>
-											<p className='text-gray-400 text-sm truncate'>{booking.barbershop.address}</p>
+											<h3 className='text-base md:text-lg font-semibold text-white'>{booking.barbershop.name}</h3>
+											<p className='text-gray-400 text-xs md:text-sm'>{booking.barbershop.address}</p>
 										</div>
 									</CardContent>
 								</Card>
