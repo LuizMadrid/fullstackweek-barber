@@ -2,6 +2,8 @@ import prisma from '../_lib/prisma';
 
 import { BarbershopItem } from '../(home)/_components/barbershop-item';
 import { SearchHeader } from '../_components/search-header';
+import { redirect } from 'next/navigation';
+import { Search } from '../(home)/_components/search';
 
 interface BarbershopPageProps {
   searchParams: {
@@ -10,6 +12,10 @@ interface BarbershopPageProps {
 } 
 
 const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
+
+	if (!searchParams.search) {
+		return redirect('/');
+	}
 
 	const barbershops = await prisma.barbershop.findMany({
 		where: {
@@ -22,9 +28,14 @@ const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
   
 	return (
 		<>
-			<SearchHeader />	
+			<SearchHeader />
 				
 			<div className='p-5 lg:px-32'>
+
+				<div className='2lg:hidden mt-2 mb-6'>
+					<Search />
+				</div>
+				
 				<h1 className='text-sm sm:text-base lg:text-lg font-bold tracking-tight'>Resultados para &quot;{searchParams.search}&quot;</h1>
 
 				<div className='grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4'>
