@@ -18,12 +18,17 @@ export const searchSchema = z.object({
 	}).trim().min(1, 'Digite algo para buscar'),
 });
 
-export const Search = () => {
+interface SearchProps {
+	defaultSearch?: z.infer<typeof searchSchema>;
+}
+
+export const Search = ({ defaultSearch }: SearchProps) => {
 
 	const router = useRouter();
 
 	const form = useForm<z.infer<typeof searchSchema>>({
 		resolver: zodResolver(searchSchema),
+		defaultValues: defaultSearch,
 	});
 
 	const handleSubmit = (data: z.infer<typeof searchSchema>) => {
