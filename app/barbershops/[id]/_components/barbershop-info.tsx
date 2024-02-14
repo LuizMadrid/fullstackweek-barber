@@ -30,7 +30,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 
 			<div className='flex flex-col gap-2 px-5 py-3 pb-6 mb-6 border-b sm:flex-row sm:justify-between border-secondary lg:border-transparent'>
 				<div className='flex flex-col gap-2'>
-					<h1 className='text-2xl font-semibold tracking-tight sm:text-4xl'>{barbershop.name}</h1>
+					<h1 className='text-2xl font-bold tracking-tight sm:text-4xl'>{barbershop.name}</h1>
     
 					<p className='flex items-center gap-2 text-sm sm:text-base'>
 						<MapPin size={16} className='text-primary fill-primary' />

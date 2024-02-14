@@ -214,10 +214,10 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 								<Card className='m-6'>
 									<CardContent className='flex flex-col gap-4 px-2 py-4'>
 										<div className='flex items-center justify-between'>
-											<h2 className='font-semibold'>{service.name}</h2>
+											<h2 className='font-bold'>{service.name}</h2>
 
 											<h3 
-												className='text-sm font-semibold uppercase'>
+												className='text-sm font-bold uppercase'>
 												{Intl.NumberFormat(
 													'pt-BR',
 													{
@@ -285,7 +285,7 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 					<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
 						<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
 							<FaCircleCheck className='w-20 h-20 my-2 text-primary' />
-							<h2 className='text-lg font-semibold'>Reserva Efetuada!</h2>
+							<h2 className='text-lg font-bold'>Reserva Efetuada!</h2>
 							<p className='text-sm text-center text-gray-400'>Sua reserva foi agendada com sucesso.</p>
 
 							<DialogClose asChild>

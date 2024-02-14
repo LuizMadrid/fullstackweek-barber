@@ -104,7 +104,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 
 				<SheetContent className='p-0'>
 					<SheetHeader className='p-5 text-left border-b border-secondary'>
-						<h2 className='text-lg font-semibold'>Detalhes da Reserva</h2>
+						<h2 className='text-lg font-bold'>Detalhes da Reserva</h2>
 					</SheetHeader>
 
 					<div className={isBookingPast ? 'px-5 pt-6 flex flex-col gap-6 grayscale' : 'px-5 pt-6 flex flex-col gap-6'}>
@@ -124,7 +124,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 										</Avatar>
 										
 										<div className='flex flex-col'>
-											<h3 className='text-base md:text-lg font-semibold text-white'>{booking.barbershop.name}</h3>
+											<h3 className='text-base md:text-lg font-bold text-white'>{booking.barbershop.name}</h3>
 											<p className='text-gray-400 text-xs md:text-sm'>{booking.barbershop.address}</p>
 										</div>
 									</CardContent>
@@ -141,10 +141,10 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 							<Card>
 								<CardContent className='flex flex-col gap-4 px-2 py-4'>
 									<div className='flex items-center justify-between'>
-										<h2 className='font-semibold'>{booking.service.name}</h2>
+										<h2 className='font-bold'>{booking.service.name}</h2>
 
 										<h3 
-											className='text-sm font-semibold uppercase'>
+											className='text-sm font-bold uppercase'>
 											{Intl.NumberFormat(
 												'pt-BR',
 												{
@@ -245,7 +245,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 			<Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
 				<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
 					<FaCircleCheck className='w-20 h-20 my-2 text-primary' />
-					<h2 className='text-lg font-semibold'>Reserva Cancelada!</h2>
+					<h2 className='text-lg font-bold'>Reserva Cancelada!</h2>
 					<p className='text-sm text-center text-gray-400'>Sua reserva foi cancelada com sucesso.</p>
 				</DialogContent>
 			</Dialog>

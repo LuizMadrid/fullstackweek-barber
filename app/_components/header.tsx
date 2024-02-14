@@ -78,7 +78,7 @@ export const Header = () => {
 									height={28} 
 									className='rounded-full'
 								/>
-								<h2 className='font-semibold tracking-tighter'>
+								<h2 className='font-bold tracking-tighter'>
 									{data?.user?.name}
 								</h2>
 							</div>

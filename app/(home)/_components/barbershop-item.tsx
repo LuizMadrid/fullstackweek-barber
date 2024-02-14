@@ -15,7 +15,7 @@ interface BarbershopItemProps {
 export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 	return (
 		<>
-			<Card className='p-1 min-w-48 sm:min-w-60 rounded-xl group'>
+			<Card className='p-1 rounded-xl group'>
 				<CardContent className='p-0'>
 					<div className='flex flex-[4] h-40 w-full relative overflow-hidden rounded-2xl'>
 						<Image 
@@ -33,7 +33,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 
 					<div className='flex flex-[3] flex-col justify-between items-stretch gap-1 h-36 p-2'>
 						<div>
-							<h2 className='text-lg font-semibold truncate'>{barbershop.name}</h2>
+							<h2 className='text-lg font-bold truncate'>{barbershop.name}</h2>
 							<p className='text-sm text-gray-400'>{barbershop.address}</p>
 						</div>
 						

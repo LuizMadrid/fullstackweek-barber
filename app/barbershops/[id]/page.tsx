@@ -64,7 +64,7 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 					<Card className='w-full h-full border-transparent rounded-xl'>
 						<CardContent className='flex flex-col gap-4'>
 							<CardHeader>
-								<CardTitle className='text-xl font-semibold'>Informações</CardTitle>
+								<CardTitle className='text-xl font-bold'>Informações</CardTitle>
 							</CardHeader>
 						</CardContent>
 					</Card>

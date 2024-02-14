@@ -47,20 +47,20 @@ const BookingsPage = async () => {
 		<>
 			<Header />
 			<div className='px-5 py-6 md:flex md:flex-col lg:px-32'>
-				<h1 className='text-2xl font-semibold'>Agendamentos</h1>
+				<h1 className='text-2xl font-bold'>Agendamentos</h1>
 
 				{confirmedBookings.length === 0 && finishedBookings.length === 0 ? (
-					<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos confirmado nem finalizado.</p>
+					<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmado nem finalizado.</p>
 				) : (
 					<>
 						{confirmedBookings.length === 0 ? (
-							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos confirmados.</p>
+							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmados.</p>
 						) : (
 							<BookingsSheet bookings={confirmedBookings} title='Confirmados' />
 						)}
 
 						{finishedBookings.length === 0 ? (
-							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-semibold tracking-wide'>Você não possui agendamentos finalizados.</p>
+							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos finalizados.</p>
 						) : (
 							<BookingsSheet bookings={finishedBookings} title='Finalizados' />
 						)}
