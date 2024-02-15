@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FSW Barber
 
-## Getting Started
+**FSW Barber** é um projeto que contem um catálogo de barbearias e cabeleireiros, onde é possível fazer reservas e buscar as barbearias, quando necessário, realizar o cancelamento.
 
-First, run the development server:
+## Construído Com
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js](https://nextjs.org/) - Framework web base do projeto.
+- [Next-auth](https://next-auth.js.org/) - Usado para uma fácil autenticação.
+- [Shadcn/ui](https://ui.shadcn.com/) - Biblioteca de componentes facilmente reutilizáveis.
+- [Zod](https://zod.dev/) - Usado para validar campos na pesquisa.
+- [Prisma](https://www.prisma.io/) - Um simplificador na parte de banco de dados.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Como Começar
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Clonar o repositório.
 
-## Learn More
+<pre><code>git clone https://github.com/LuizMadrid/fullstackweek-barber.git</code></pre>
 
-To learn more about Next.js, take a look at the following resources:
+- Abrir a pasta no VS Code
+- Adicionar um arquivo .env no servidor contendo:
+<pre><code>DATABASE_URL="..."
+GOOGLE_CLIENT_ID="..."
+GOOGLE_CLIENT_SECRET="..."
+NEXT_AUTH_SECRET="..."
+</code></pre>
+  
+- Executar o projeto.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<pre><code>npm i</code></pre>
+- "npm i" serve para instalar módulos e dependências que o projeto pode precisar.
+<pre><code>npm run dev </code></pre>
+- "npm run dev" é para dar início no projeto para ser visualizado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Minhas Melhorias
 
-## Deploy on Vercel
+- Total responsividade nas telas disponíveis;
+- Caso o horário da reserva na data atual seja inferior ao horário atual, não é mostrada esta hora para o agendamento;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Autor
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Todo esse projeto foi idealizado pelo [Felipe Rocha](https://github.com/felipemotarocha) do canal [DicaParaDevs](https://www.youtube.com/@dicasparadevs). Com algumas melhorias realizadas por mim.
+
+## Deploy do Projeto
+
+- [FSW - Barber](https://fullstackweek-barber-sigma.vercel.app/)
