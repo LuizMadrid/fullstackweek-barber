@@ -4,7 +4,6 @@ import prisma from '../_lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../_lib/auth';
 
-import { Header } from '../_components/header';
 import { BookingsSheet } from './_components/booking-list';
 
 export const metadata: Metadata = {
@@ -44,31 +43,28 @@ const BookingsPage = async () => {
 	]);
 
 	return (
-		<>
-			<Header />
-			<div className='px-5 py-6 md:flex md:flex-col lg:px-32'>
-				<h1 className='text-2xl font-bold'>Agendamentos</h1>
+		<div className='px-5 py-6 md:flex md:flex-col lg:px-32'>
+			<h1 className='text-2xl font-bold'>Agendamentos</h1>
 
-				{confirmedBookings.length === 0 && finishedBookings.length === 0 ? (
-					<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmado nem finalizado.</p>
-				) : (
-					<>
-						{confirmedBookings.length === 0 ? (
-							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmados.</p>
-						) : (
-							<BookingsSheet bookings={confirmedBookings} title='Confirmados' />
-						)}
+			{confirmedBookings.length === 0 && finishedBookings.length === 0 ? (
+				<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmado nem finalizado.</p>
+			) : (
+				<>
+					{confirmedBookings.length === 0 ? (
+						<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos confirmados.</p>
+					) : (
+						<BookingsSheet bookings={confirmedBookings} title='Confirmados' />
+					)}
 
-						{finishedBookings.length === 0 ? (
-							<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos finalizados.</p>
-						) : (
-							<BookingsSheet bookings={finishedBookings} title='Finalizados' />
-						)}
-					</>
-				)}
+					{finishedBookings.length === 0 ? (
+						<p className='text-center mt-5 uppercase text-gray-400 text-lg font-bold tracking-wide'>Você não possui agendamentos finalizados.</p>
+					) : (
+						<BookingsSheet bookings={finishedBookings} title='Finalizados' />
+					)}
+				</>
+			)}
 
-			</div>
-		</>
+		</div>
 	);
 };
  

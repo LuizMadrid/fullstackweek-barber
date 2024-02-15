@@ -25,7 +25,7 @@ export const BarbershopHeader = () => {
 
 	const handleToBookings = () => {
 		if (isUserAuth) {
-			router.push('/bookings');
+			return router.push('/bookings');
 		} else {
 			setUserAuth(true);
 		}

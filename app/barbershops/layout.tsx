@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 
-import './globals.css';
+import '../globals.css';
 
-import { Footer } from './_components/footer';
-import AuthProvider from './_providers/auth';
+import { Footer } from '../_components/footer';
+import AuthProvider from '../_providers/auth';
+import { BarbershopHeader } from './[id]/_components/barbershop-header';
 
 const nunito = Nunito({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
 		<html lang="pt-br">
 			<body className={`${nunito.className} dark`}>
 				<AuthProvider>
+					<BarbershopHeader />
 					<div className='flex-1'>
 						{children}
 					</div>
