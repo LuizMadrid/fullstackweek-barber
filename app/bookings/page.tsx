@@ -7,7 +7,7 @@ import { authOptions } from '../_lib/auth';
 import { BookingsSheet } from './_components/booking-list';
 
 export const metadata: Metadata = {
-	title: 'Agendamentos',
+	title: 'Agendamentos | FSW Barber',
 };
 
 const BookingsPage = async () => {

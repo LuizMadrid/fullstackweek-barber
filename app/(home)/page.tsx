@@ -16,7 +16,7 @@ import { WelcomeForUser } from './_components/welcome-user';
 import { ScrollArrowToRight } from '../_components/scroll-animate-arrow';
 
 export const metadata: Metadata = {
-	title: 'Home',
+	title: 'Home | FSW Barber',
 };
 
 export default async function Home() {

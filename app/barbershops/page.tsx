@@ -8,7 +8,15 @@ interface BarbershopPageProps {
   searchParams: {
     search?: string;
   };
-} 
+}
+
+export async function generateMetadata({
+	searchParams,
+}: BarbershopPageProps) {
+	return {
+		title: `Resultados para "${searchParams.search}" | FSW Barber`,
+	};
+}
 
 const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
 

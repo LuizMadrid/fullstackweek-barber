@@ -13,9 +13,19 @@ import { Avatar, AvatarImage } from '@/app/_components/ui/avatar';
 import { Smartphone } from 'lucide-react';
 import CopyButton from '@/app/_components/copy-button';
 
-export const metadata: Metadata = {
-	title: 'Barbearias',
-};
+export async function generateMetadata({
+	params,
+}: BarbershopPageProps): Promise<Metadata> {
+	const barbershop = await prisma.barbershop.findUnique({
+		where: {
+			id: params.id,
+		},
+	});
+
+	return {
+		title: `${barbershop?.name ?? 'Barbearia'}`,
+	};
+}
 
 interface BarbershopPageProps {
 	params: {

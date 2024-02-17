@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 		shortcut: { url: '/favicon.svg' },
 	},
 	title: {
-		template: '%s | FSW Barber',
+		template: 'FSW Barber',
 		default: 'FSW Barber',
 	},
 	description: 'Catálogos de barbearias em sua mão',

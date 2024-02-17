@@ -3,9 +3,9 @@ import { Nunito } from 'next/font/google';
 
 import '../globals.css';
 
+import { BarbershopHeader } from './[id]/_components/barbershop-header';
 import { Footer } from '../_components/footer';
 import AuthProvider from '../_providers/auth';
-import { BarbershopHeader } from './[id]/_components/barbershop-header';
 
 const nunito = Nunito({ subsets: ['latin'] });
 
