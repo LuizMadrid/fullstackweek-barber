@@ -1,9 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
+import { SearchSkeleton } from '@/app/_components/skeletons/skeleton';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
 
 import { SearchIcon } from 'lucide-react';
@@ -25,6 +27,7 @@ interface SearchProps {
 export const Search = ({ defaultSearch }: SearchProps) => {
 
 	const router = useRouter();
+	const {status} = useSession();
 
 	const form = useForm<z.infer<typeof searchSchema>>({
 		resolver: zodResolver(searchSchema),
@@ -34,6 +37,14 @@ export const Search = ({ defaultSearch }: SearchProps) => {
 	const handleSubmit = (data: z.infer<typeof searchSchema>) => {
 		router.push(`/barbershops?search=${data.search}`);
 	};
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<SearchSkeleton />
+			</div>
+		);
+	}
 	
 	return (
 		<>

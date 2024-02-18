@@ -1,13 +1,29 @@
+'use client';
+
 import Image from 'next/image';
 import { Barbershop } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 
 import { MapPin, Star } from 'lucide-react';
+
+import { BarbershopInfoSkeleton } from '@/app/_components/skeletons/skeleton';
 
 interface BarbershopDetailsProps {
   barbershop: Barbershop
 }
 
 export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
+
+	const {status} = useSession();
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<BarbershopInfoSkeleton />
+			</div>
+		);
+	}
+	
 	return (
 		<>
 			<div className='relative w-full h-64 sm:h-fit sm:hidden'>

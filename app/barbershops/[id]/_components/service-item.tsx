@@ -17,6 +17,7 @@ import { Calendar } from '@/app/_components/ui/calendar';
 import { Card, CardContent } from '@/app/_components/ui/card';
 import { SignInDialog } from '@/app/_components/signin-dialog';
 import { Dialog, DialogClose, DialogContent } from '@/app/_components/ui/dialog';
+import { BarbershopServiceItemSkeleton } from '@/app/_components/skeletons/skeleton';
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/app/_components/ui/sheet';
 
 import { Loader2 } from 'lucide-react';
@@ -31,7 +32,7 @@ interface ServiceItemProps {
 
 export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) => {
 
-	const {data} = useSession();
+	const {data, status} = useSession();
 
 	const [date, setDate] = React.useState<Date | undefined>(undefined);
 	const [hour, setHour] = React.useState<string | undefined>();
@@ -138,6 +139,14 @@ export const ServiceItem = ({ barbershop, service , isAuth }: ServiceItemProps) 
 			}, 4000);
 		}
 	};
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<BarbershopServiceItemSkeleton />
+			</div>
+		);
+	}
 	
 	return (
 		<Card className='flex items-center gap-3 p-3 group'>
