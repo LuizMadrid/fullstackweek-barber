@@ -13,6 +13,7 @@ import { HamburgerMenu } from './hamburger-menu';
 import { Dialog, DialogTrigger } from './ui/dialog';
 
 import { CalendarDays, UserCircle2Icon } from 'lucide-react';
+import { HeaderSkeleton } from './skeletons/skeleton';
 
 export const Header = () => {
 
@@ -28,6 +29,14 @@ export const Header = () => {
 			setUserAuth(true);
 		}
 	};
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<HeaderSkeleton />
+			</div>
+		);
+	}
 
 	return (
 		<header className="flex items-center justify-between p-5 border-b lg:px-32 bg-background border-secondary">

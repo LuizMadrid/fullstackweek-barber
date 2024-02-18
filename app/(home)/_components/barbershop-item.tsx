@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import { Barbershop } from '@prisma/client';
@@ -7,12 +9,25 @@ import { Button } from '@/app/_components/ui/button';
 import { Badge } from '../../_components/ui/badge';
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { BarbershopItemSkeleton } from '@/app/_components/skeletons/skeleton';
 
 interface BarbershopItemProps {
 	barbershop: Barbershop
 }
 
 export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
+
+	const {status} = useSession();
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<BarbershopItemSkeleton />
+			</div>
+		);
+	}
+	
 	return (
 		<>
 			<Card className='p-1 rounded-xl group'>

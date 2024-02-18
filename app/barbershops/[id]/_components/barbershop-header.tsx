@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 import { Search } from '@/app/(home)/_components/search';
@@ -12,9 +13,9 @@ import { HamburgerMenu } from '@/app/_components/hamburger-menu';
 
 import { Button } from '@/app/_components/ui/button';
 import { CalendarDays, UserCircle2Icon } from 'lucide-react';
-import { Dialog, DialogTrigger } from '@/app/_components/ui/dialog';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
-import { useRouter } from 'next/navigation';
+import { Dialog, DialogTrigger } from '@/app/_components/ui/dialog';
+import { BarbershopHeaderSkeleton } from '@/app/_components/skeletons/skeleton';
 
 export const BarbershopHeader = () => {
 
@@ -30,6 +31,14 @@ export const BarbershopHeader = () => {
 			setUserAuth(true);
 		}
 	};
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<BarbershopHeaderSkeleton />
+			</div>
+		);
+	}
   
 	return (
 		<div className='absolute top-0 z-50 w-full p-5 lg:px-32 sm:bg-background sm:border-b sm:border-secondary sm:static'>
