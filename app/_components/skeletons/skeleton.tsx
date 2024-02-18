@@ -113,6 +113,83 @@ const BarbershopServiceItemSkeleton = () => {
 	);
 };
 
+const BarbershopServiceInfoSkeleton = () => {
+	return (
+		<div className='min-w-[350px]  px-5 lg:px-0'>
+			<Card className='w-full h-full border-transparent rounded-xl'>
+				<CardContent className='flex flex-col gap-4 p-3'>
+					<div className='flex flex-col gap-6'>
+						<Skeleton className='w-full h-48 rounded-2xl' />
+
+						<div className='flex flex-col gap-6'>
+							<div className='space-y-2'>
+								<Skeleton className='w-1/3 h-8' />
+
+								<Skeleton className='w-full h-6' />
+								<Skeleton className='w-full h-6' />
+								<Skeleton className='w-full h-6' />
+								<Skeleton className='w-1/2 h-6' />
+							</div>
+
+							<div className='py-5 border-y border-secondary space-y-4'>
+								<div className='flex justify-between items-center'>
+									<Skeleton className='w-2/4 h-7' />
+
+									<Skeleton className='w-24 h-9' />
+								</div>
+
+								<div className='flex justify-between items-center'>
+									<Skeleton className='w-2/4 h-7' />
+
+									<Skeleton className='w-24 h-9' />
+								</div>
+							</div>
+
+							<div className='space-y-2 border-b border-secondary pb-5'>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/4 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/3 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/3 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/3 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/3 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/3 h-7' />
+								</div>
+								<div className='flex justify-between'>
+									<Skeleton className='w-2/4 h-7' />
+									<Skeleton className='w-1/4 h-7' />
+								</div>
+							</div>
+
+							<div className='flex justify-between items-center py-6'>
+								<Skeleton className='w-1/3 h-6' />
+
+								<Skeleton className='w-1/3 h-14' />
+							</div>
+						</div>
+					</div>
+							
+				</CardContent>
+			</Card>
+		</div>
+	);
+};
+
 const BarbershopInfoSkeleton = () => {
 	return (
 		<>
@@ -136,4 +213,12 @@ const BarbershopInfoSkeleton = () => {
 	);
 };
 
-export { HeaderSkeleton, SearchSkeleton, BarbershopHeaderSkeleton, BarbershopItemSkeleton, BarbershopServiceItemSkeleton, BarbershopInfoSkeleton };
+export { 
+	HeaderSkeleton, 
+	SearchSkeleton, 
+	BarbershopHeaderSkeleton, 
+	BarbershopItemSkeleton, 
+	BarbershopServiceItemSkeleton, 
+	BarbershopServiceInfoSkeleton, 
+	BarbershopInfoSkeleton 
+};
