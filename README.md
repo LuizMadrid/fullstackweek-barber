@@ -37,6 +37,7 @@ NEXT_AUTH_SECRET="..."
 
 - Total responsividade nas telas disponíveis;
 - Caso o horário da reserva na data atual seja inferior ao horário atual, não é mostrada esta hora para o agendamento;
+- Loading com skeletons para uma melhor performance para o usuário;
 
 ## Autor
 
