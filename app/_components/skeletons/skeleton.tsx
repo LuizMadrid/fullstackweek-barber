@@ -24,6 +24,33 @@ const HeaderSkeleton = () => {
 	);
 };
 
+const HeaderSearchSkeleton = () => {
+	return (
+		<header className="flex items-center justify-between p-5 border-b lg:px-32 bg-background border-secondary">
+
+			<Skeleton className='w-32 h-10' />
+
+			<div className='lg:hidden'>
+				<Skeleton className='size-8'  />
+			</div>
+
+			<div className='hidden 2lg:flex 2lg:items-center 2lg:gap-3 2lg:w-1/2'>
+				<Skeleton className='w-full h-9' />
+				<Skeleton className='h-9 w-11' />
+			</div>
+
+			<div className='hidden lg:flex lg:items-center lg:gap-6'>
+				<Skeleton className='h-6 w-36' />
+
+				<div className='flex items-center gap-2'>
+					<Skeleton className='rounded-full w-9 h-9' />
+					<Skeleton className='w-32 h-6' />
+				</div>
+			</div>
+		</header>
+	);
+};
+
 const SearchSkeleton = () => {
 	return (
 		<div className='flex gap-4'>
@@ -244,7 +271,8 @@ const BookingItemSkeleton = () => {
 };
 
 export { 
-	HeaderSkeleton, 
+	HeaderSkeleton,
+	HeaderSearchSkeleton,
 	SearchSkeleton, 
 	BarbershopHeaderSkeleton, 
 	BarbershopItemSkeleton, 

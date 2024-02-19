@@ -20,6 +20,8 @@ const buttonVariants = cva(
 				success: 'bg-green-600 text-primary-foreground border border-transparent hover:bg-green-900',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
 				link: 'text-primary underline-offset-4 hover:underline',
+
+				dropbar: 'font-bold justify-start items-center hover:bg-accent py-2 gap-2 w-full',
 			},
 			size: {
 				default: 'h-10 px-4 py-2',
