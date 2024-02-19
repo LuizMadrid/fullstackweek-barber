@@ -2,10 +2,12 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
+import { BookingItemSkeleton } from './skeletons/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from './ui/sheet';
 
@@ -31,6 +33,8 @@ interface BookingItemProps {
 
 export const BookingItem = ({ booking }: BookingItemProps) => {
 
+	const {status} = useSession();
+	
 	const isBookingPast = isPast(booking.date);
 
 	const [isSheetOpen, setIsSheetOpen] = React.useState(false);
@@ -56,6 +60,14 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 			setSubmitIsLoading(false);
 		}
 	};
+
+	if (status === 'loading') {
+		return (
+			<div>
+				<BookingItemSkeleton />
+			</div>
+		);
+	}
 	
 	return (
 		<>

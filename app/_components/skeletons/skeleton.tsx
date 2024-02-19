@@ -213,6 +213,36 @@ const BarbershopInfoSkeleton = () => {
 	);
 };
 
+const BookingItemSkeleton = () => {
+	return (
+		<div className='min-w-full'>
+			<Card>
+				<CardContent className='flex p-0'>
+					<div className='flex flex-[3] items-start flex-col gap-2 p-5'>
+						<Skeleton className='w-24 h-4' />
+
+						<Skeleton className='w-1/5 h-6' />
+
+						<div className='flex items-center gap-2 text-center'>
+							<Skeleton className='rounded-full size-8' />
+
+							<Skeleton className='w-24 h-6' />
+						</div>
+					</div>
+
+					<div className='flex flex-[1] flex-col gap-1 items-center justify-center border-l border-secondary p-5'>
+						<Skeleton className='w-32 h-6' />
+									
+						<Skeleton className='size-12' />
+					
+						<Skeleton className='w-24 h-6' />
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	);
+};
+
 export { 
 	HeaderSkeleton, 
 	SearchSkeleton, 
@@ -220,5 +250,6 @@ export {
 	BarbershopItemSkeleton, 
 	BarbershopServiceItemSkeleton, 
 	BarbershopServiceInfoSkeleton, 
-	BarbershopInfoSkeleton 
+	BarbershopInfoSkeleton,
+	BookingItemSkeleton
 };
