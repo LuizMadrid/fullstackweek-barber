@@ -1,11 +1,13 @@
 'use server';
 
 import prisma from '@/app/_lib/prisma';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const { name, address, about, imageUrl } = req.body;
+export async function POST(request: Request) {
+
+	const req = await request.json();
+	const { name, address, about, imageUrl } = req;
 
 	try {
 		const barbershop = await prisma.barbershop.create({
@@ -17,14 +19,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			},
 		});
 
+		return new NextResponse(
+			JSON.stringify({
+				success: true,
+			})
+		);
+
 		revalidatePath('/');
 		revalidatePath('/create/barbershop');
 		revalidatePath('/barbershop/' + barbershop.id);
 
-		res.status(201).json(barbershop);
-		res.status(201).json({ message: 'Barbershop created' });
+		NextResponse.json(barbershop);
+		NextResponse.json({ message: 'Barbershop created' });
 	} catch (error) {
 		console.error('Error creating barbershop', error);
-		// res.status(500).json({ error: 'Error creating barbershop' });
+		return new NextResponse(
+			JSON.stringify({
+				success: false,
+			})
+		);
 	}
 }

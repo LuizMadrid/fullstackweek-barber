@@ -29,7 +29,7 @@ const CreateBarbershopScreen = () => {
 	
 	async function create(data: BarbershopData) {
 		try {
-			await fetch('actions/create-barbershop', {
+			await fetch('create/actions/create-barbershop', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
