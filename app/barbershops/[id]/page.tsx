@@ -39,11 +39,18 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 		},
 		include: {
 			services: true,
+			user: true,
 		}
 	});
 
+	// const user = await prisma.user.findUnique({
+	// 	where: {
+	// 		id: barbershop?.userId as string,
+	// 	}
+	// });
+
 	return (
-		<div className='flex flex-col 2lg:flex-row lg:px-32 lg:pt-10 gap-2'>
+		<div className='flex flex-col gap-2 2lg:flex-row lg:px-32 lg:pt-10'>
 			<div className='2lg:flex-[5] xl:flex-[7]'>
 				<BarbershopInfo barbershop={barbershop as any} />
 

@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
-import { Barbershop } from '@prisma/client';
+// import { Barbershop } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 import { Smartphone } from 'lucide-react';
 
@@ -15,7 +16,11 @@ import { Avatar, AvatarImage } from '@/app/_components/ui/avatar';
 import { BarbershopServiceInfoSkeleton } from '@/app/_components/skeletons/skeleton';
 
 interface ServiceInfoProps {
-	barbershop: Barbershop
+	barbershop: Prisma.BarbershopGetPayload<{
+		include: {
+			user: true;
+		};
+	}>;
 }
 
 export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
@@ -51,24 +56,25 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 		<Card className='w-full h-full border-transparent rounded-xl'>
 			<CardContent className='flex flex-col gap-4 p-3'>
 				<div className='flex flex-col gap-6'>
-					<div className='relative h-48 w-full group overflow-hidden rounded-b-2xl cursor-default'>
+					<div className='relative w-full h-48 overflow-hidden cursor-default group rounded-b-2xl'>
 						<Image 
 							fill 
 							src={'/fswbackground-map.png'} 
 							alt='Mapa do local da reserva'
-							className='object-cover group-hover:scale-125 transition-all group-hover:transition-all'
+							className='object-cover transition-all group-hover:scale-125 group-hover:transition-all'
 						/>
 
-						<div className='absolute flex items-end px-5 w-full h-full bg-gradient-to-b from-card to-transparent'>
-							<Card className='w-full mb-4 mx-auto'>
-								<CardContent className='flex justify-stretch items-center gap-4 p-2'>
+						<div className='absolute flex items-end w-full h-full px-5 bg-gradient-to-b from-card to-transparent'>
+							<Card className='w-full mx-auto mb-4'>
+								<CardContent className='flex items-center gap-4 p-2 justify-stretch'>
 									<Avatar className='size-8 md:size-12'>
 										<AvatarImage src={barbershop?.imageUrl ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} />
 									</Avatar>
 												
 									<div className='flex flex-col'>
-										<h3 className='text-base md:text-lg font-bold text-white'>{barbershop?.name}</h3>
-										<p className='text-gray-400 text-xs md:text-sm'>{barbershop?.address}</p>
+										<h3 className='text-base font-bold text-white md:text-lg'>{barbershop?.name}</h3>
+
+										<p className='text-xs text-gray-400 md:text-sm'>{barbershop?.address}</p>
 									</div>
 								</CardContent>
 							</Card>
@@ -77,12 +83,27 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 
 					<div className='flex flex-col gap-6'>
 						<div className='space-y-2'>
-							<h2 className='uppercase font-bold text-lg tracking-tight'>Sobre Nós</h2>
-							<p className='text-gray-400 tracking-tight text-justify leading-5'>Bem-vindo à nossa barbearia, onde tradição encontra estilo. Nossa equipe de mestres barbeiros transforma cortes de cabelo e barbas em obras de arte. Em um ambiente acolhedor, promovemos confiança, estilo e uma comunidade unida.</p>
+							<h2 className='text-lg font-bold tracking-tight uppercase'>Sobre Nós</h2>
+
+							<p className='leading-5 tracking-tight text-justify text-gray-400'>{barbershop?.about}</p>
 						</div>
 
-						<div className='py-5 border-y border-secondary space-y-4'>
-							<div className='flex justify-between items-center'>
+						{barbershop?.user ? (
+							<div className='pt-5 border-t border-secondary'>
+								<div className='flex items-center justify-start gap-2'>
+									<h2 className='font-bold tracking-tight'>Proprietário:</h2>
+
+									<h3 className='tracking-tight text-gray-400'>
+										{barbershop?.user?.name?.split(' ')[0]}
+										&nbsp;
+										{barbershop?.user?.name?.split(' ')[1]}
+									</h3>
+								</div>
+							</div>
+						) : null}
+
+						<div className='py-5 space-y-4 border-y border-secondary'>
+							<div className='flex items-center justify-between'>
 								<h3 className='flex gap-2'>
 									<Smartphone size={24} />
                     &#40;11&#41; 99999-9999
@@ -100,7 +121,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 								</Button>
 							</div>
 
-							<div className='flex justify-between items-center'>
+							<div className='flex items-center justify-between'>
 								<h3 className='flex gap-2'>
 									<Smartphone size={24} />
                     &#40;11&#41; 92929-9292
@@ -119,7 +140,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 							</div>
 						</div>
 
-						<div className='space-y-2 border-b border-secondary pb-5'>
+						<div className='pb-5 space-y-2 border-b border-secondary'>
 							<div className='flex justify-between'>
 								<p className='text-gray-400'>Domingo</p>
 								<span>Fechado</span>
@@ -150,7 +171,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 							</div>
 						</div>
 
-						<div className='flex justify-between items-center py-6'>
+						<div className='flex items-center justify-between py-6'>
 							<h2>Em parceria com</h2>
 							<Image 
 								src="/FSW Barber.png" 

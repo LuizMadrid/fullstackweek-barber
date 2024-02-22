@@ -11,21 +11,25 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  Barbershop    Barbershop[]
 }
 
 model Barbershop {
   id       String    @id @default(uuid())
+  userId   String?
   name     String
   address  String
   imageUrl String
+  about    String    @default("We are a barbershop")
+  user     User?     @relation(fields: [userId], references: [id])
   services Service[]
   bookings Booking[]
 }
