@@ -58,7 +58,9 @@ export const DropdownMenu = () => {
 				/>
 								
 				<h2 className='font-bold tracking-tighter'>
-					{data?.user?.name}
+					{data?.user?.name?.split(' ')[0]}
+					&nbsp;
+					{data?.user?.name?.split(' ')[1]}
 				</h2>
 			</Button>
 

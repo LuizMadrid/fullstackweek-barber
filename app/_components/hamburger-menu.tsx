@@ -11,7 +11,7 @@ import { SignOutDialog } from './signout-dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Dialog, DialogTrigger } from './ui/dialog';
 
-import { CalendarDays, Home, LogIn, LogOut, MenuIcon } from 'lucide-react';
+import { CalendarDays, Home, LogIn, LogOut, MenuIcon, Newspaper } from 'lucide-react';
 
 export const HamburgerMenu = () => {
 
@@ -77,7 +77,7 @@ export const HamburgerMenu = () => {
 
 					{status === 'authenticated' && (
 						<div className='flex flex-col gap-3'>
-							<Link href={'/'} prefetch={true}>
+							<Link href={'/'} passHref>
 								<Button 
 									variant={'outline'} 
 									className='flex items-center justify-start w-full gap-2 rounded-lg'>
@@ -86,12 +86,21 @@ export const HamburgerMenu = () => {
 								</Button>
 							</Link>
 
-							<Link href={'/bookings'} prefetch={true}>
+							<Link href={'/bookings'} passHref>
 								<Button 
 									variant={'outline'} 
 									className='flex items-center justify-start w-full gap-2 rounded-lg'>
 									<CalendarDays size={16} />
 									Agendamentos
+								</Button>
+							</Link>
+
+							<Link href={'/create'} passHref>
+								<Button 
+									variant={'outline'}
+									className='flex items-center justify-start w-full gap-2 rounded-lg'>
+									<Newspaper size={16} />
+									Criar Barbearia
 								</Button>
 							</Link>
 						</div>

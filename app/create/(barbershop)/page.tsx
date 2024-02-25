@@ -99,7 +99,7 @@ const CreateBarbershopScreen = () => {
 			)}
 
 			{showForm && (
-				<Card>
+				<Card className='mt-[20%] lg:mt-0'>
 					<CardContent className='p-5 lg:min-w-[50vw] space-y-4'>
 						<form
 							onSubmit={ 
