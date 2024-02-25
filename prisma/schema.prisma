@@ -24,12 +24,12 @@ model User {
 
 model Barbershop {
   id       String    @id @default(uuid())
-  userId   String?
+  userId   String
   name     String
   address  String
   imageUrl String
   about    String    @default("We are a barbershop")
-  user     User?     @relation(fields: [userId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
   services Service[]
   bookings Booking[]
 }

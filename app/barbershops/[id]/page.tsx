@@ -65,11 +65,18 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 						</Button>
 					</div>
 
-					<div className='flex flex-col gap-4 px-5 2sm:grid 2sm:grid-cols-2 2xl:grid-cols-3'>
-						{barbershop?.services.map((service) => (
-							<ServiceItem key={service.id} barbershop={barbershop} service={service} isAuth={!!session?.user} />
-						))}
-					</div>
+					{barbershop?.services.length != 0 ? (
+						<div className='flex flex-col gap-4 px-5 2sm:grid 2sm:grid-cols-2 2xl:grid-cols-3'>
+							{barbershop?.services.map((service) => (
+								<ServiceItem key={service.id} barbershop={barbershop} service={service} isAuth={!!session?.user}/>
+							))}
+						</div>
+					) : (
+						<div className='h-full mx-auto my-12 font-bold text-center text-gray-400'>
+							<p className='text-lg uppercase'>Ops...</p>
+							<p className=''>Essa barbearia não possui nenhum serviço cadastrado!</p>
+						</div>
+					)}
 				</div>
 			</div>
 

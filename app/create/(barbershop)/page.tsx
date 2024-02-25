@@ -3,22 +3,40 @@
 import React, { useState } from 'react';
 
 import { Button } from '@/app/_components/ui/button';
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
+import { Card, CardContent } from '@/app/_components/ui/card';
+import { Input } from '@/app/_components/ui/input';
+import { Textarea } from '@/app/_components/ui/textarea';
+import Image from 'next/image';
+import { Separator } from '@radix-ui/react-separator';
 
 interface BarbershopData {
 	name: string;
 	address: string;
 	about: string;
-	imageUrl?: string;
+	imageUrl: string;
 }
 
 const CreateBarbershopScreen = () => {
 
+	const [showForm, setShowForm] = useState(false);
+	const [showCompletionMessage, setShowCompletionMessage] = useState(false);
 	const [barbershop, setBarbershop] = useState<BarbershopData>({
 		name: '',
 		address: '',
 		about: '',
 		imageUrl: ''
 	});
+
+	const handleContinueClick = () => {
+		setShowForm(true);
+	};
+
+	const handleBackToWelcomeClick = () => {
+		setShowForm(false);
+		setShowCompletionMessage(false);
+	};
 
 	const handleInputChange = (event:any) => {
 		setBarbershop({
@@ -27,7 +45,7 @@ const CreateBarbershopScreen = () => {
 		});
 	};
 	
-	async function create(data: BarbershopData) {
+	async function create(data: BarbershopData,) {
 		try {
 			await fetch('create/actions/create-barbershop', {
 				method: 'POST',
@@ -47,64 +65,139 @@ const CreateBarbershopScreen = () => {
 		} catch (error) {
 			console.error('Error creating barbershop in page', error);
 		}
+
+		setShowForm(false);
+		setShowCompletionMessage(true);
 	};
 
 	return (
-		<div className='flex flex-col gap-4 justify-center items-center h-full'>
-			<h1>Criar Barbearia</h1>
-			<form 
-				onSubmit={ 
-					event => {
-						event.preventDefault();
-						handleSubmit(barbershop);
-					}
-				}
-				className=''>
-				<div>
-					<textarea 
-						// type="text"
-						placeholder='Nome da barbearia'
-						id="name" 
-						value={barbershop.name} 
-						onChange={handleInputChange} 
-						className='bg-secondary text-white'
-					/>
-				</div>
+		<div className='flex flex-col items-center justify-center h-full gap-6'>
 
-				<div>
-					<textarea 
-						// type="text"
-						placeholder='Endereço da barbearia' 
-						id="address" 
-						value={barbershop.address} 
-						onChange={handleInputChange} 
-						className='bg-secondary text-white'
-					/>
-				</div>
-				
-				<div>
-					<textarea 
-						// type='text'
-						placeholder='Sobre a barbearia'
-						id="about" 
-						value={barbershop.about} 
-						onChange={handleInputChange}
-						className='bg-secondary text-white'
-					/>
-				</div>
+			<Link  href='/' passHref className='absolute top-4 left-4'>
+				<Button 
+					variant={'ghost'}
+					className='flex gap-2 hover:bg-secondary/70'>
+					<ChevronLeft size={16} />
+					Página Inicial
+				</Button>
+			</Link>
 
-				<div>
-					<textarea 
-						// type='text' 
-						placeholder='Url da imagem'
-						id="imageUrl" 
-						value={barbershop.imageUrl} 
-						onChange={handleInputChange} 
-						className='bg-secondary text-white'
-					/>
-				</div>
-				<Button type="submit">Criar</Button>
-			</form>
+			{!showForm && !showCompletionMessage && (
+				<>
+					<h1 className='text-7xl font-bold text-center font-mono tracking-tight text-transparent uppercase bg-gradient-to-b from-primary via-primary/40 to-primary/10 from-0% via-40% to-70% bg-clip-text'>Seja bem vindo!</h1>
+					<p className='text-xl font-bold text-center text-gray-400'>Adicione informações sobre sua barbearia para que seus clientes possam te encontrar.</p>
+					
+					<Button 
+						onClick={handleContinueClick}
+						className='font-bold uppercase'>
+						Continuar
+					</Button>
+				</>
+			)}
+
+			{showForm && (
+				<Card>
+					<CardContent className='p-5 lg:min-w-[50vw] space-y-4'>
+						<form
+							onSubmit={ 
+								event => {
+									event.preventDefault();
+									handleSubmit(barbershop);
+								}
+							}
+							className='space-y-4'>
+
+							<div className='flex flex-col gap-4 lg:flex-row'>
+								<div className='flex-[1] flex flex-col justify-between gap-4'>
+									<div className='relative h-full overflow-hidden rounded-lg min-h-24'>
+										<Image 
+											fill
+											src={barbershop.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
+											alt={barbershop.name} 
+											className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
+										/>
+									</div>
+
+									<Input
+										type='file'
+										className='text-xs file:font-bold file:text-white'
+										id="imageUrl" 
+										value={barbershop.imageUrl} 
+										onChange={handleInputChange}
+									/>
+								</div>
+
+								<Separator 
+									orientation='horizontal' 
+									className='lg:hidden w-full h-[1px] bg-border'
+								/>
+							
+								<div className='flex-[2] space-y-4'>
+									<Input 
+										placeholder='Nome da barbearia'
+										id="name" 
+										value={barbershop.name} 
+										onChange={handleInputChange} 
+										className='p-2 text-white rounded-md bg-secondary'
+									/>
+
+									<Input 
+										placeholder='Endereço da barbearia' 
+										id="address" 
+										value={barbershop.address} 
+										onChange={handleInputChange} 
+										className='p-2 text-white rounded-md bg-secondary'
+									/>
+					
+									<Textarea 
+										placeholder='Sobre a barbearia'
+										id="about" 
+										value={barbershop.about} 
+										onChange={handleInputChange}
+										className='p-2 text-white rounded-md bg-secondary min-h-32'
+									/>
+
+									{/* <Input 
+										placeholder='Url da imagem'
+										id="imageUrl" 
+										value={barbershop.imageUrl} 
+										onChange={handleInputChange} 
+										className='p-2 text-white rounded-md bg-secondary'
+									/> */}
+								</div>
+							</div>
+
+							<div className='flex items-center justify-between gap-12 pt-6 lg:pt-0'>
+								<Button 
+									onClick={handleBackToWelcomeClick}
+									className='px-8 font-bold uppercase'>
+									Voltar
+								</Button>
+								<Button 
+									type="submit"
+									className='px-8 font-bold uppercase'>
+									Criar
+								</Button>
+							</div>
+						</form>
+
+					</CardContent>
+				</Card>
+			)}
+
+			{showCompletionMessage && (
+				<>
+					<h1>Concluído, Obrigado!</h1>
+					<p>Sua barbearia foi criada com sucesso.</p>
+
+					<Link href='/' passHref>
+						<Button>
+							Concluir
+						</Button>
+					</Link>
+				</>
+			)}
+			
 		</div>
 	);
 };

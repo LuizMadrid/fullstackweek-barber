@@ -120,24 +120,24 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 					</SheetHeader>
 
 					<div className={isBookingPast ? 'px-5 pt-6 flex flex-col gap-6 grayscale' : 'px-5 pt-6 flex flex-col gap-6'}>
-						<div className='relative h-48 w-full group overflow-hidden rounded-b-2xl cursor-default'>
+						<div className='relative w-full h-48 overflow-hidden cursor-default group rounded-b-2xl'>
 							<Image 
 								fill 
 								src={'/fswbackground-map.png'} 
 								alt='Mapa do local da reserva'
-								className='object-cover group-hover:scale-125 transition-all group-hover:transition-all'
+								className='object-cover transition-all group-hover:scale-125 group-hover:transition-all'
 							/>
 
-							<div className='absolute flex items-end px-5 w-full h-full bg-gradient-to-t from-transparent to-background'>
-								<Card className='w-fit h-fit mb-4 mx-auto'>
-									<CardContent className='flex justify-center items-center gap-4 p-2'>
+							<div className='absolute flex items-end w-full h-full px-5 bg-gradient-to-t from-transparent to-background'>
+								<Card className='mx-auto mb-4 w-fit h-fit'>
+									<CardContent className='flex items-center justify-center gap-4 p-2'>
 										<Avatar className='size-8 md:size-12'>
 											<AvatarImage src={booking.barbershop.imageUrl ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} />
 										</Avatar>
 										
 										<div className='flex flex-col'>
-											<h3 className='text-base md:text-lg font-bold text-white'>{booking.barbershop.name}</h3>
-											<p className='text-gray-400 text-xs md:text-sm'>{booking.barbershop.address}</p>
+											<h3 className='text-base font-bold text-white md:text-lg'>{booking.barbershop.name}</h3>
+											<p className='text-xs text-gray-400 md:text-sm'>{booking.barbershop.address}</p>
 										</div>
 									</CardContent>
 								</Card>

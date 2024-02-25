@@ -64,7 +64,7 @@ export const DropdownMenu = () => {
 
 			{menuIsOpen && (
 				<div className='z-50 absolute top-14 left-[5px] rounded-lg shadow-md gap-4 after:border-l-[16px] after:border-r-[16px] after:border-t-[16px] after:border-transparent after:border-t-secondary after:absolute after:rotate-180 after:-top-[16px] after:left-2 bg-background border border-secondary min-w-32'>
-					<div className='flex flex-col justify-stretch p-1 gap-2 w-full'>
+					<div className='flex flex-col w-full gap-2 p-1 justify-stretch'>
 						<Link href={'/create'} passHref>
 							<Button 
 								variant={'dropbar'}>

@@ -3,7 +3,6 @@ import { Nunito } from 'next/font/google';
 
 import '../globals.css';
 
-import { Footer } from '../_components/footer';
 import AuthProvider from '../_providers/auth';
 
 const nunito = Nunito({ subsets: ['latin'] });
@@ -31,7 +30,6 @@ export default function RootLayout({
 					<div className='flex-1'>
 						{children}
 					</div>
-					<Footer />
 				</AuthProvider>
 			</body>
 		</html>
