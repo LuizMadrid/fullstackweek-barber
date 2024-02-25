@@ -130,6 +130,7 @@ const CreateBarbershopScreen = () => {
 									/> */}
 
 									<UploadButton 
+										className='rounded-lg ut-allowed-content:hidden ut-button:bg-secondary'
 										endpoint='imageUploader'
 										onClientUploadComplete={(file) => {
 											setFileUrl(file[0].url);
