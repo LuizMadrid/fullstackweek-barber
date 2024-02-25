@@ -1,15 +1,16 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { Button } from '@/app/_components/ui/button';
-import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { Card, CardContent } from '@/app/_components/ui/card';
+
 import { Input } from '@/app/_components/ui/input';
-import { Textarea } from '@/app/_components/ui/textarea';
-import Image from 'next/image';
+import { Button } from '@/app/_components/ui/button';
 import { Separator } from '@radix-ui/react-separator';
+import { Textarea } from '@/app/_components/ui/textarea';
+import { Card, CardContent } from '@/app/_components/ui/card';
 
 interface BarbershopData {
 	name: string;
