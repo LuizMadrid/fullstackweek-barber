@@ -11,6 +11,7 @@ import { Button } from '@/app/_components/ui/button';
 import { Separator } from '@radix-ui/react-separator';
 import { Textarea } from '@/app/_components/ui/textarea';
 import { Card, CardContent } from '@/app/_components/ui/card';
+import { UploadButton } from '@/utils/uploadthing';
 
 interface BarbershopData {
 	name: string;
@@ -21,6 +22,7 @@ interface BarbershopData {
 
 const CreateBarbershopScreen = () => {
 
+	const [fileUrl, setFileUrl] = useState('');
 	const [showForm, setShowForm] = useState(false);
 	const [showCompletionMessage, setShowCompletionMessage] = useState(false);
 	const [barbershop, setBarbershop] = useState<BarbershopData>({
@@ -113,19 +115,34 @@ const CreateBarbershopScreen = () => {
 									<div className='relative h-full overflow-hidden rounded-lg min-h-24'>
 										<Image 
 											fill
-											src={barbershop.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
+											src={fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
 											alt={barbershop.name} 
 											className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 										/>
 									</div>
 
-									<Input
+									{/* <Input
 										type='file'
 										className='text-xs file:font-bold file:text-white'
 										id="imageUrl" 
 										value={barbershop.imageUrl} 
 										onChange={handleInputChange}
+									/> */}
+
+									<UploadButton 
+										endpoint='imageUploader'
+										onClientUploadComplete={(file) => {
+											setFileUrl(file[0].url);
+											setBarbershop({
+												...barbershop,
+												imageUrl: file[0].url
+											});
+										}}
+										onUploadError={(error) => {
+											console.error('Error uploading image', error);
+										}}
 									/>
+
 								</div>
 
 								<Separator 
