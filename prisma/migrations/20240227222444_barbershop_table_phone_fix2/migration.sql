@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Barbershop" ALTER COLUMN "phone1" DROP DEFAULT,
+ALTER COLUMN "phone2" DROP DEFAULT;

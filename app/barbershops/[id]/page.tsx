@@ -4,7 +4,7 @@ import prisma from '@/app/_lib/prisma';
 import { authOptions } from '@/app/_lib/auth';
 import { getServerSession } from 'next-auth';
 
-import { Button } from '@/app/_components/ui/button';
+// import { Button } from '@/app/_components/ui/button';
 import { ServiceItem } from './_components/service-item';
 import { BarbershopInfo } from './_components/barbershop-info';
 import { ServiceInfo } from './_components/service-info';
@@ -43,27 +43,21 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 		}
 	});
 
-	// const user = await prisma.user.findUnique({
-	// 	where: {
-	// 		id: barbershop?.userId as string,
-	// 	}
-	// });
-
 	return (
 		<div className='flex flex-col gap-2 2lg:flex-row lg:px-32 lg:pt-10'>
 			<div className='2lg:flex-[5] xl:flex-[7]'>
 				<BarbershopInfo barbershop={barbershop as any} />
 
 				<div className='flex flex-col gap-6'>
-					<div className='flex gap-3 px-5 2lg:hidden'>
+					{/* <div className='flex gap-3 px-5 2lg:hidden'>
 						<Button variant={'default'}>
 							Serviços
 						</Button>
 
 						<Button variant={'outline'}>
-							informações
+							Informações
 						</Button>
-					</div>
+					</div> */}
 
 					{barbershop?.services.length != 0 ? (
 						<div className='flex flex-col gap-4 px-5 2sm:grid 2sm:grid-cols-2 2xl:grid-cols-3'>
@@ -77,6 +71,10 @@ const BarbershopDetails = async ({ params }: BarbershopPageProps) => {
 							<p className=''>Essa barbearia não possui nenhum serviço cadastrado!</p>
 						</div>
 					)}
+
+					<div className='2lg:hidden px-5 border-t border-secondary pt-5'>
+						<ServiceInfo barbershop={barbershop as any} />
+					</div>
 				</div>
 			</div>
 

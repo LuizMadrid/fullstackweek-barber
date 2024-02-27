@@ -29,6 +29,8 @@ model Barbershop {
   address  String
   imageUrl String
   about    String    @default("We are a barbershop")
+  phone1   String    @unique
+  phone2   String    @unique
   user     User      @relation(fields: [userId], references: [id])
   services Service[]
   bookings Booking[]

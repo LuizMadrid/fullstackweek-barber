@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Barbershop" ALTER COLUMN "phone2" SET DEFAULT '11992929292';

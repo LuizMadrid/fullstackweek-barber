@@ -106,7 +106,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 							<div className='flex items-center justify-between'>
 								<h3 className='flex gap-2'>
 									<Smartphone size={24} />
-                    &#40;11&#41; 99999-9999
+									{barbershop?.phone1}
 								</h3>
 
 								<Button 
@@ -115,7 +115,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 										phone1Copied ? 'success' : 'secondary'
 									}
 									className='w-24'>
-									<CopyButton textToCopy={'(11) 99999-9999'}>
+									<CopyButton textToCopy={barbershop?.phone1}>
 										{phone1Copied ? 'Copiado' : 'Copiar'}
 									</CopyButton>
 								</Button>
@@ -124,7 +124,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 							<div className='flex items-center justify-between'>
 								<h3 className='flex gap-2'>
 									<Smartphone size={24} />
-                    &#40;11&#41; 92929-9292
+									{barbershop?.phone2}
 								</h3>
 
 								<Button 
@@ -133,7 +133,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 										phone2Copied ? 'success' : 'secondary'
 									}
 									className='w-24'>
-									<CopyButton textToCopy={'(11) 92929-9292'}>
+									<CopyButton textToCopy={barbershop?.phone2}>
 										{phone2Copied ? 'Copiado' : 'Copiar'}
 									</CopyButton>
 								</Button>

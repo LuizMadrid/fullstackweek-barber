@@ -4,51 +4,64 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
+import { PatternFormat, PatternFormatProps } from 'react-number-format';
+
 import { ChevronLeft } from 'lucide-react';
 
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
+import { UploadButton } from '@/utils/uploadthing';
 import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
 import { Separator } from '@radix-ui/react-separator';
 import { Textarea } from '@/app/_components/ui/textarea';
 import { Card, CardContent } from '@/app/_components/ui/card';
-import { UploadButton } from '@/utils/uploadthing';
+import { Dialog, DialogContent } from '@/app/_components/ui/dialog';
+import { FaCircleCheck } from 'react-icons/fa6';
 
-interface BarbershopData {
-	name: string;
-	address: string;
-	about: string;
-	imageUrl: string;
-}
+const BarbershopDataSchema = z.object({
+	name: z.string()
+		.min(3, 'Nome da barbearia deve ter no mínimo 3 caracteres')
+		.max(30, 'Nome da barbearia deve ter no máximo 30 caracteres')
+		.transform(name => {
+			return name.trim().split(' ').map(word => {
+				return word[0].toUpperCase().concat(word.substring(1));
+			}).join(' ');
+		}),
 
-const CreateBarbershopScreen = () => {
+	address: z.string()
+		.min(3, 'Endereço da barbearia deve ter no mínimo 3 caracteres'),
+
+	about: z.string()
+		.min(3, 'Sobre a barbearia deve ter no mínimo 3 caracteres')
+		.max(400, 'Sobre a barbearia deve ter no máximo 400 caracteres')
+		.optional(),
+		
+	imageUrl: z.string()
+		.optional(),
+
+	phone1: z.string()
+		.min(11, 'Telefones devem ter no mínimo 11 caracteres'),
+	
+	phone2: z.string()
+		.min(11, 'Telefones devem ter no mínimo 11 caracteres'),
+});
+
+type BarbershopData = z.infer<typeof BarbershopDataSchema>;
+
+const CreateBarbershopScreen = (props: Partial<PatternFormatProps>) => {
 
 	const [fileUrl, setFileUrl] = useState('');
-	const [showForm, setShowForm] = useState(false);
-	const [showCompletionMessage, setShowCompletionMessage] = useState(false);
-	const [barbershop, setBarbershop] = useState<BarbershopData>({
-		name: '',
-		address: '',
-		about: '',
-		imageUrl: ''
+	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
+
+	const form = useForm<BarbershopData>({
+		resolver: zodResolver(BarbershopDataSchema),
 	});
 
-	const handleContinueClick = () => {
-		setShowForm(true);
-	};
-
-	const handleBackToWelcomeClick = () => {
-		setShowForm(false);
-		setShowCompletionMessage(false);
-	};
-
-	const handleInputChange = (event:any) => {
-		setBarbershop({
-			...barbershop,
-			[event.target.id]: event.target.value
-		});
-	};
-	
-	async function create(data: BarbershopData,) {
+	async function createUser(data: BarbershopData,) {
 		try {
 			await fetch('create/actions/create-barbershop', {
 				method: 'POST',
@@ -56,21 +69,16 @@ const CreateBarbershopScreen = () => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(data),
-			}).then(() => setBarbershop({name: '', address: '', about: '', imageUrl: ''}));
+			});
+
+			setIsCreatedSuccessfully(true);
 		} catch (error) {
 			console.error('Error creating barbershop in page', error);
 		}
 	}
 
-	const handleSubmit = (data: BarbershopData) => {
-		try {
-			create(data);
-		} catch (error) {
-			console.error('Error creating barbershop in page', error);
-		}
-
-		setShowForm(false);
-		setShowCompletionMessage(true);
+	const handleCloseDialog = () => {
+		setIsCreatedSuccessfully(true);
 	};
 
 	return (
@@ -85,29 +93,11 @@ const CreateBarbershopScreen = () => {
 				</Button>
 			</Link>
 
-			{!showForm && !showCompletionMessage && (
-				<>
-					<h1 className='text-7xl font-bold text-center font-mono tracking-tight text-transparent uppercase bg-gradient-to-b from-primary via-primary/40 to-primary/10 from-0% via-40% to-70% bg-clip-text'>Seja bem vindo!</h1>
-					<p className='text-xl font-bold text-center text-gray-400'>Adicione informações sobre sua barbearia para que seus clientes possam te encontrar.</p>
-					
-					<Button 
-						onClick={handleContinueClick}
-						className='font-bold uppercase'>
-						Continuar
-					</Button>
-				</>
-			)}
-
-			{showForm && (
-				<Card className='mt-[20%] lg:mt-0'>
-					<CardContent className='p-5 lg:min-w-[50vw] space-y-4'>
+			<Card className='mt-[20%] lg:mt-0'>
+				<CardContent className='p-5 lg:min-w-[50vw] space-y-4'>
+					<Form {...form}>
 						<form
-							onSubmit={ 
-								event => {
-									event.preventDefault();
-									handleSubmit(barbershop);
-								}
-							}
+							onSubmit={form.handleSubmit(createUser)}
 							className='space-y-4'>
 
 							<div className='flex flex-col gap-4 lg:flex-row'>
@@ -116,34 +106,34 @@ const CreateBarbershopScreen = () => {
 										<Image 
 											fill
 											src={fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
-											alt={barbershop.name} 
+											alt={form.watch('name') || 'Barbearia'} 
 											className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 										/>
 									</div>
 
-									{/* <Input
-										type='file'
-										className='text-xs file:font-bold file:text-white'
-										id="imageUrl" 
-										value={barbershop.imageUrl} 
-										onChange={handleInputChange}
-									/> */}
-
-									<UploadButton 
-										className='rounded-lg ut-allowed-content:hidden ut-button:bg-secondary'
-										endpoint='imageUploader'
-										onClientUploadComplete={(file) => {
-											setFileUrl(file[0].url);
-											setBarbershop({
-												...barbershop,
-												imageUrl: file[0].url
-											});
-										}}
-										onUploadError={(error) => {
-											console.error('Error uploading image', error);
-										}}
+									<FormField
+										control={form.control}
+										name="imageUrl"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<UploadButton 
+														className='rounded-lg ut-allowed-content:hidden ut-button:bg-secondary ut-button:w-full ut-button:hover:bg-primary ut-button:transition-all ut-button:hover:transition-all'
+														endpoint='imageUploader'
+														onClientUploadComplete={(file) => {
+															setFileUrl(file[0].url);
+															form.setValue('imageUrl', file[0].url);
+														}}
+														onUploadError={(error) => {
+															console.error('Error uploading image', error);
+														}}
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage className='text-red-600 text-sm tracking-tight' />
+											</FormItem>
+										)}
 									/>
-
 								</div>
 
 								<Separator 
@@ -152,71 +142,141 @@ const CreateBarbershopScreen = () => {
 								/>
 							
 								<div className='flex-[2] space-y-4'>
-									<Input 
-										placeholder='Nome da barbearia'
-										id="name" 
-										value={barbershop.name} 
-										onChange={handleInputChange} 
-										className='p-2 text-white rounded-md bg-secondary'
+									<FormField
+										control={form.control}
+										name="name"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input 
+														placeholder='Nome da barbearia' 
+														className='p-2 text-white rounded-md bg-secondary'
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
 									/>
 
-									<Input 
-										placeholder='Endereço da barbearia' 
-										id="address" 
-										value={barbershop.address} 
-										onChange={handleInputChange} 
-										className='p-2 text-white rounded-md bg-secondary'
-									/>
-					
-									<Textarea 
-										placeholder='Sobre a barbearia'
-										id="about" 
-										value={barbershop.about} 
-										onChange={handleInputChange}
-										className='p-2 text-white rounded-md bg-secondary min-h-32'
+									<FormField
+										control={form.control}
+										name="address"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input 
+														placeholder='Endereço da barbearia' 
+														className='p-2 text-white rounded-md bg-secondary'
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
 									/>
 
-									{/* <Input 
-										placeholder='Url da imagem'
-										id="imageUrl" 
-										value={barbershop.imageUrl} 
-										onChange={handleInputChange} 
-										className='p-2 text-white rounded-md bg-secondary'
-									/> */}
+									<FormField
+										control={form.control}
+										name="about"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Textarea 
+														placeholder='Sobre a barbearia'
+														maxLength={400}
+														className='p-2 text-white rounded-md bg-secondary min-h-32'
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<div className='flex justify-between gap-2'>
+										<div className='flex-1'>
+											<label className='font-bold text-xs tracking-tight'>Telefone 1:</label>
+											<FormField
+												control={form.control}
+												name="phone1"
+												render={({ field }) => (
+													<FormItem>
+														<FormControl>
+															<PatternFormat
+																{...props}
+																format='(##) #####-####'
+																placeholder='(99) 99999-9999'
+																autoComplete='tel-national'
+																customInput={Input}
+																className='p-2 text-white rounded-md bg-secondary'
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage className='text-red-600 text-sm tracking-tight' />
+													</FormItem>
+												)}
+											/>
+										</div>
+
+										<div className='flex-1'>
+											<label className='font-bold text-xs tracking-tight'>Telefone 2:</label>
+											<FormField
+												control={form.control}
+												name="phone2"
+												render={({ field }) => (
+													<FormItem>
+														<FormControl>
+															<PatternFormat
+																{...props}
+																format='(##) #####-####'
+																placeholder='(99) 99292-9292'
+																autoComplete='tel-national'
+																customInput={Input}
+																className='p-2 text-white rounded-md bg-secondary'
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage className='text-red-600 text-sm tracking-tight' />
+													</FormItem>
+												)}
+											/>
+										</div>
+									</div>
+									
 								</div>
 							</div>
 
-							<div className='flex items-center justify-between gap-12 pt-6 lg:pt-0'>
-								<Button 
-									onClick={handleBackToWelcomeClick}
-									className='px-8 font-bold uppercase'>
-									Voltar
-								</Button>
-								<Button 
-									type="submit"
-									className='px-8 font-bold uppercase'>
-									Criar
-								</Button>
-							</div>
+							<Button 
+								type="submit"
+								className='px-8 font-bold uppercase'>
+								Criar
+							</Button>
 						</form>
+					</Form>
 
-					</CardContent>
-				</Card>
-			)}
+				</CardContent>
+			</Card>
 
-			{showCompletionMessage && (
-				<>
-					<h1>Concluído, Obrigado!</h1>
-					<p>Sua barbearia foi criada com sucesso.</p>
+			
 
-					<Link href='/' passHref>
-						<Button>
-							Concluir
+			<Dialog open={isCreatedSuccessfully} onOpenChange={handleCloseDialog}>
+				<DialogContent className='flex flex-col justify-center items-center gap-4 w-fit border-none rounded-3xl data-[state=open]:backdrop-blur-md'>
+					<FaCircleCheck className='w-20 h-20 my-2 text-primary' />
+					<h2 className='text-lg font-bold'>Barbearia criada com Sucesso!</h2>
+					<p className='text-sm text-center text-gray-400'>
+						Todas as informações foram salvas com sucesso.
+						<br />
+						Você pode editar as informações a qualquer momento.
+					</p>
+
+					<Link href={'/'} className='w-full' passHref>
+						<Button className='w-full uppercase'>
+						Ok
 						</Button>
 					</Link>
-				</>
-			)}
-			
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 };
