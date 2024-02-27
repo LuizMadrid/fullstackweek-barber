@@ -31,13 +31,13 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 	return (
 		<>
 			<Card className='p-1 rounded-xl group'>
-				<CardContent className='p-0'>
-					<div className='flex flex-[4] h-40 w-full relative overflow-hidden rounded-2xl'>
+				<CardContent className='p-1'>
+					<div className='flex flex-[4] h-44 w-full relative overflow-hidden rounded-2xl'>
 						<Image 
 							fill
-							src={barbershop.imageUrl} 
+							src={barbershop.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'} 
 							alt={barbershop.name} 
-							className='object-fill transition-all group-hover:scale-105 group-hover:transition-all'
+							className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'
 						/>
 						
 						<Badge className='absolute flex gap-1 p-1 top-2 left-2 bg-purple-500/10 backdrop-blur-md'>

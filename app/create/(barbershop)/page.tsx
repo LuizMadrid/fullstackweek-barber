@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 
 import { PatternFormat, PatternFormatProps } from 'react-number-format';
 
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Loader2 } from 'lucide-react';
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
 import { UploadButton } from '@/utils/uploadthing';
@@ -52,16 +52,18 @@ const BarbershopDataSchema = z.object({
 
 type BarbershopData = z.infer<typeof BarbershopDataSchema>;
 
-const CreateBarbershopScreen = (props: Partial<PatternFormatProps>) => {
+const CreateBarbershopScreen = (props: PatternFormatProps) => {
 
 	const [fileUrl, setFileUrl] = useState('');
 	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
+	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
 
 	const form = useForm<BarbershopData>({
 		resolver: zodResolver(BarbershopDataSchema),
 	});
 
 	async function createUser(data: BarbershopData,) {
+		setSubmitIsLoading(true);
 		try {
 			await fetch('create/actions/create-barbershop', {
 				method: 'POST',
@@ -249,8 +251,16 @@ const CreateBarbershopScreen = (props: Partial<PatternFormatProps>) => {
 
 							<Button 
 								type="submit"
-								className='px-8 font-bold uppercase'>
-								Criar
+								className='px-8 font-bold uppercase'
+								disabled={submitIsLoading}>
+								{submitIsLoading ? (
+									<p className='flex items-center justify-center gap-1'>
+										<Loader2 className="w-4 h-4 mr-2 animate-spin" />
+									Carregando...
+									</p>
+								) : (
+									<p>Criar</p>
+								)}
 							</Button>
 						</form>
 					</Form>
