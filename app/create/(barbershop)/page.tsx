@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { PatternFormat, PatternFormatProps } from 'react-number-format';
+import { PatternFormat } from 'react-number-format';
 
 import { ChevronLeft, Loader2 } from 'lucide-react';
 
@@ -52,7 +52,7 @@ const BarbershopDataSchema = z.object({
 
 type BarbershopData = z.infer<typeof BarbershopDataSchema>;
 
-const CreateBarbershopScreen = (props: PatternFormatProps) => {
+const CreateBarbershopScreen = () => {
 
 	const [fileUrl, setFileUrl] = useState('');
 	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
@@ -206,7 +206,6 @@ const CreateBarbershopScreen = (props: PatternFormatProps) => {
 													<FormItem>
 														<FormControl>
 															<PatternFormat
-																{...props}
 																format='(##) #####-####'
 																placeholder='(99) 99999-9999'
 																autoComplete='tel-national'
@@ -230,7 +229,6 @@ const CreateBarbershopScreen = (props: PatternFormatProps) => {
 													<FormItem>
 														<FormControl>
 															<PatternFormat
-																{...props}
 																format='(##) #####-####'
 																placeholder='(99) 99292-9292'
 																autoComplete='tel-national'
