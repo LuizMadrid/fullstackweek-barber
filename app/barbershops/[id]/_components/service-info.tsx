@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 // import { Barbershop } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 
-import { Smartphone } from 'lucide-react';
+import { CheckCircle2, Smartphone } from 'lucide-react';
 
 import { Button } from '@/app/_components/ui/button';
 import CopyButton from '@/app/_components/copy-button';
@@ -116,7 +116,14 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 									}
 									className='w-24'>
 									<CopyButton textToCopy={barbershop?.phone1}>
-										{phone1Copied ? 'Copiado' : 'Copiar'}
+										{phone1Copied ? (
+											<p className='flex gap-1'>
+												<CheckCircle2 size={19} />
+												Copiado
+											</p>
+										) : (
+											'Copiar'
+										)}
 									</CopyButton>
 								</Button>
 							</div>
@@ -134,7 +141,14 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 									}
 									className='w-24'>
 									<CopyButton textToCopy={barbershop?.phone2}>
-										{phone2Copied ? 'Copiado' : 'Copiar'}
+										{phone2Copied ? (
+											<p className='flex gap-1'>
+												<CheckCircle2 size={19} />
+												Copiado
+											</p>
+										) : (
+											'Copiar'
+										)}
 									</CopyButton>
 								</Button>
 							</div>

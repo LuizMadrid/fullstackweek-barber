@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,8 +12,8 @@ import { useForm } from 'react-hook-form';
 import { PatternFormat } from 'react-number-format';
 
 import { ChevronLeft, Loader2 } from 'lucide-react';
+import { FaCircleCheck } from 'react-icons/fa6';
 
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
 import { UploadButton } from '@/utils/uploadthing';
 import { Input } from '@/app/_components/ui/input';
 import { Button } from '@/app/_components/ui/button';
@@ -20,7 +21,8 @@ import { Separator } from '@radix-ui/react-separator';
 import { Textarea } from '@/app/_components/ui/textarea';
 import { Card, CardContent } from '@/app/_components/ui/card';
 import { Dialog, DialogContent } from '@/app/_components/ui/dialog';
-import { FaCircleCheck } from 'react-icons/fa6';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
+import { SignInDialog } from '@/app/_components/signin-dialog';
 
 const BarbershopDataSchema = z.object({
 	name: z.string()
@@ -57,6 +59,7 @@ const CreateBarbershopScreen = () => {
 	const [fileUrl, setFileUrl] = useState('');
 	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
 	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
+	const { status } = useSession();
 
 	const form = useForm<BarbershopData>({
 		resolver: zodResolver(BarbershopDataSchema),
@@ -83,8 +86,16 @@ const CreateBarbershopScreen = () => {
 		setIsCreatedSuccessfully(true);
 	};
 
+	if (status === 'unauthenticated') {
+		return (
+			<Dialog open={true} onOpenChange={() => {}}>
+				<SignInDialog />
+			</Dialog>
+		);
+	}
+
 	return (
-		<div className='flex flex-col items-center justify-center h-full gap-6'>
+		<div className='flex flex-col items-center justify-center h-full gap-6 bg-card sm:bg-background'>
 
 			<Link  href='/' passHref className='absolute top-4 left-4'>
 				<Button 
@@ -95,7 +106,7 @@ const CreateBarbershopScreen = () => {
 				</Button>
 			</Link>
 
-			<Card className='mt-[20%] lg:mt-0'>
+			<Card className='mt-[20%] lg:mt-0 border-transparent sm:border-secondary'>
 				<CardContent className='p-5 lg:min-w-[50vw] space-y-4'>
 					<Form {...form}>
 						<form
@@ -132,7 +143,7 @@ const CreateBarbershopScreen = () => {
 														{...field}
 													/>
 												</FormControl>
-												<FormMessage className='text-red-600 text-sm tracking-tight' />
+												<FormMessage className='text-sm tracking-tight text-red-600' />
 											</FormItem>
 										)}
 									/>
@@ -198,7 +209,7 @@ const CreateBarbershopScreen = () => {
 
 									<div className='flex justify-between gap-2'>
 										<div className='flex-1'>
-											<label className='font-bold text-xs tracking-tight'>Telefone 1:</label>
+											<label className='text-xs font-bold tracking-tight'>Telefone 1:</label>
 											<FormField
 												control={form.control}
 												name="phone1"
@@ -214,14 +225,14 @@ const CreateBarbershopScreen = () => {
 																{...field}
 															/>
 														</FormControl>
-														<FormMessage className='text-red-600 text-sm tracking-tight' />
+														<FormMessage className='text-sm tracking-tight text-red-600' />
 													</FormItem>
 												)}
 											/>
 										</div>
 
 										<div className='flex-1'>
-											<label className='font-bold text-xs tracking-tight'>Telefone 2:</label>
+											<label className='text-xs font-bold tracking-tight'>Telefone 2:</label>
 											<FormField
 												control={form.control}
 												name="phone2"
@@ -237,7 +248,7 @@ const CreateBarbershopScreen = () => {
 																{...field}
 															/>
 														</FormControl>
-														<FormMessage className='text-red-600 text-sm tracking-tight' />
+														<FormMessage className='text-sm tracking-tight text-red-600' />
 													</FormItem>
 												)}
 											/>
@@ -249,7 +260,7 @@ const CreateBarbershopScreen = () => {
 
 							<Button 
 								type="submit"
-								className='px-8 font-bold uppercase'
+								className='w-full px-8 font-bold uppercase lg:w-fit'
 								disabled={submitIsLoading}>
 								{submitIsLoading ? (
 									<p className='flex items-center justify-center gap-1'>

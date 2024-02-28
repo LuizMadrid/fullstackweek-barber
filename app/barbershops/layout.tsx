@@ -21,7 +21,7 @@ export default function BarbershopLayout({
 	return (
 		<>
 			<BarbershopHeader />
-			<div className='h-full'>
+			<div className='h-full mb-[4.5rem]'>
 				{children}
 			</div>
 		</>

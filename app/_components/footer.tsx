@@ -1,7 +1,15 @@
 export const Footer = () => {
 	return (
-		<footer className='w-full bg-secondary py-6 px-5 flex items-center mt-[4.5rem]'>
-			<p className='text-sm text-gray-400'>© 2024 Copyright FSW Barber</p>
+		<footer className='flex items-center w-full px-5 py-6 bg-secondary'>
+			<div className='flex gap-1 text-sm text-gray-400'>
+				<span>
+					©&nbsp;
+					{new Date().getFullYear()}
+				</span>
+				<p>
+					Copyright FSW Barber
+				</p>
+			</div>
 		</footer>
 	);
 };

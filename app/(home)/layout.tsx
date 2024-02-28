@@ -18,7 +18,7 @@ export default function HomeLayout({
 	return (
 		<>
 			<Header />
-			<div className='h-full'>
+			<div className='h-full mb-[4.5rem]'>
 				{children}
 			</div>
 		</>

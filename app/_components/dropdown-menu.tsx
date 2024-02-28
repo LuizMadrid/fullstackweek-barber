@@ -9,7 +9,7 @@ import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
 
-import { CalendarDays, LogOut, Newspaper } from 'lucide-react';
+import { CalendarDays, LogOut, Newspaper, PanelRightOpen } from 'lucide-react';
 
 export const DropdownMenu = () => {
 
@@ -67,6 +67,14 @@ export const DropdownMenu = () => {
 			{menuIsOpen && (
 				<div className='z-50 absolute top-14 left-[5px] rounded-lg shadow-md gap-4 after:border-l-[16px] after:border-r-[16px] after:border-t-[16px] after:border-transparent after:border-t-secondary after:absolute after:rotate-180 after:-top-[16px] after:left-2 bg-background border border-secondary min-w-32'>
 					<div className='flex flex-col w-full gap-2 p-1 justify-stretch'>
+						<Link href={'/bookings'} passHref>
+							<Button 
+								variant={'dropbar'}>
+								<CalendarDays size={16} />
+                Agendamentos
+							</Button>
+						</Link>
+
 						<Link href={'/create'} passHref>
 							<Button 
 								variant={'dropbar'}>
@@ -75,11 +83,11 @@ export const DropdownMenu = () => {
 							</Button>
 						</Link>
 
-						<Link href={'/bookings'} passHref>
+						<Link href={'/painel'} passHref>
 							<Button 
 								variant={'dropbar'}>
-								<CalendarDays size={16} />
-                Agendamentos
+								<PanelRightOpen size={16} />
+                Seu Painel
 							</Button>
 						</Link>
 
