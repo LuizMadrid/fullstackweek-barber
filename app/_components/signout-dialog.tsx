@@ -13,6 +13,8 @@ export const SignOutDialog = () => {
 
 	const handleLogoutClick = async () => {
 		await signOut();
+
+		return window.location.replace('/');
 	};
 	
 	return (
