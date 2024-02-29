@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-
-import { Header } from '../_components/header';
+import { AsidePainel } from './_components/aside-painel';
 
 export const metadata: Metadata = {
 	icons: {
@@ -16,11 +15,11 @@ export default function CreateLayout({
   children: React.ReactNode;
 }>) {
 	return (
-		<>
-			<Header />
-			<div className='h-full'>
+		<div className='flex flex-col h-full 2sm:flex-row'>
+			<AsidePainel />
+			<div className='w-full overflow-x-hidden'>
 				{children}
 			</div>
-		</>
+		</div>
 	);
 }

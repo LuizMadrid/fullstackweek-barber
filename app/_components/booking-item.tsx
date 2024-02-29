@@ -106,7 +106,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 									</p>
 									
 									<p>
-										{format(booking.date, 'hh:mm')}
+										{format(booking.date, 'HH:mm')}
 									</p>
 								</div>
 							</CardContent>
@@ -186,7 +186,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 									<div className='flex items-center justify-between'>
 										<h3 className='text-gray-400'>Horário</h3>
 
-										<p>{format(booking.date, 'hh:mm')}</p>
+										<p>{format(booking.date, 'HH:mm')}</p>
 									</div>
 
 									<div className='flex items-center justify-between'>
