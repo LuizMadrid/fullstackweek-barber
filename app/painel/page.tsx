@@ -79,9 +79,9 @@ const page = async () => {
 					<div className='relative space-y-2'>
 						<h1 className='text-lg font-bold tracking-wide text-gray-400 capitalize'>Agendados Hoje</h1>
 
-						<div className='grid grid-flow-col gap-4'>
+						<div className='grid grid-flow-col gap-4 w-fit'>
 							{todaysBookings.map((booking) => (
-								<div key={booking.id} className='w-fit'>
+								<div key={booking.id}>
 									<TodayBookingUser bookings={booking as any} />
 								</div>
 							))}

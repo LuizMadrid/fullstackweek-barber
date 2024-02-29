@@ -30,7 +30,11 @@ export const TodayBookingUser = ({ bookings }: TodayBookingUserProps) => {
 							height={32} 
 							className='rounded-full' 
 						/>
-						<p className='text-base'>{bookings.user.name}</p>
+						<p className='text-base'>
+							{bookings?.user?.name?.split(' ')[0]}
+							&nbsp;
+							{bookings?.user?.name?.split(' ')[1]}
+						</p>
 					</CardTitle>
 				</CardHeader>
 
