@@ -118,6 +118,7 @@ const CreateBarbershopScreen = () => {
 									<div className='relative h-full overflow-hidden rounded-lg min-h-24'>
 										<Image 
 											fill
+											sizes='100%'
 											src={fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
 											alt={form.watch('name') || 'Barbearia'} 
 											className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'

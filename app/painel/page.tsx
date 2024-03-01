@@ -6,6 +6,7 @@ import prisma from '../_lib/prisma';
 import { DropdownMenu } from '../_components/dropdown-menu';
 import { TodayBookingUser } from './_components/today-booking-user';
 import { UserBarbershops } from './_components/user-barbershops';
+import { HamburgerMenuPainel } from './_components/hamburger-menu-painel';
 
 const page = async () => {
 
@@ -59,7 +60,13 @@ const page = async () => {
 					<p className='text-sm text-gray-400'>Gerencie suas barbearias e agendamentos</p>
 				</div>
 				
-				<DropdownMenu />
+				<div className='2sm:hidden'>
+					<HamburgerMenuPainel />
+				</div>
+				
+				<div className='hidden 2sm:flex'>
+					<DropdownMenu />
+				</div>
 			</div>
 
 			<div className='p-5'>

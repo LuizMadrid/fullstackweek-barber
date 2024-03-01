@@ -22,6 +22,7 @@ export const UserBarbershops = ({ barbershop }: UserBarbershopsProps) => {
 					<div className='flex flex-[4] h-44 w-full relative overflow-hidden rounded-t-xl'>
 						<Image 
 							fill
+							sizes='100%'
 							src={barbershop.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'} 
 							alt={barbershop.name} 
 							className='object-cover transition-all group-hover:scale-105 group-hover:transition-all'

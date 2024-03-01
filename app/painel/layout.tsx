@@ -16,7 +16,10 @@ export default function CreateLayout({
 }>) {
 	return (
 		<div className='flex flex-col h-full 2sm:flex-row'>
-			<AsidePainel />
+			<div className='hidden 2sm:flex'>
+				<AsidePainel />
+			</div>
+
 			<div className='w-full overflow-x-hidden'>
 				{children}
 			</div>

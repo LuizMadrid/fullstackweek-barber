@@ -7,7 +7,11 @@ import { CalendarDays, LayoutPanelLeft, Newspaper, TimerReset } from 'lucide-rea
 import { Button } from '@/app/_components/ui/button';
 import { Separator } from '@/app/_components/ui/separator';
 
-export const AsidePainel = async () => {
+interface AsidePainelProps {
+	className?: string;
+}
+
+export const AsidePainel = async ({ className }: AsidePainelProps) => {
 
 	const session = await getServerSession(authOptions);
 
@@ -42,7 +46,7 @@ export const AsidePainel = async () => {
 	const myBarbershop = barbershops.filter(barbershops => barbershops.user.id === (session?.user as any).id);
 
 	return (
-		<div className='border-b border-r border-secondary 2sm:border-b-transparent'>
+		<div className={`border-r border-secondary ${className}`}>
 			<ul className='px-5 pt-5 space-y-4 text-gray-400'>
 				<li>
 					<Button
@@ -83,17 +87,8 @@ export const AsidePainel = async () => {
 					<Button
 						variant={'ghost'}
 						className='flex justify-start w-full gap-2'>
-						<Newspaper size={16} />
-						Editar Barbearias
-					</Button>
-				</li>
-					
-				<li>
-					<Button
-						variant={'ghost'}
-						className='flex justify-start w-full gap-2'>
 						<LayoutPanelLeft size={16} />
-						Editar Serviços
+						Editar Informações
 					</Button>
 				</li>
 

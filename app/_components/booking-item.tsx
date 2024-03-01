@@ -123,6 +123,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 						<div className='relative w-full h-48 overflow-hidden cursor-default group rounded-b-2xl'>
 							<Image 
 								fill 
+								sizes='100%'
 								src={'/fswbackground-map.png'} 
 								alt='Mapa do local da reserva'
 								className='object-cover transition-all group-hover:scale-125 group-hover:transition-all'

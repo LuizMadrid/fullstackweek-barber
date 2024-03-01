@@ -47,6 +47,7 @@ export default async function Home() {
 					src='/background-fswbarber.jpeg' 
 					alt={'imagem de fundo!'} 
 					fill 
+					sizes='100%'
 					className='hidden object-cover object-left-top -z-10 lg:block lg:opacity-30'
 				/>
 					

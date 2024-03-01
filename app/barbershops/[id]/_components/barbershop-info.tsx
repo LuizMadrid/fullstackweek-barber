@@ -29,6 +29,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 			<div className='relative w-full h-64 sm:h-fit sm:hidden'>
 				<Image
 					fill
+					sizes='100%'
 					src={barbershop.imageUrl}
 					alt={barbershop.name}
 					className='object-cover'
@@ -38,6 +39,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 			<div className='relative min-w-fit h-[50vh] mx-5 hidden sm:block'>
 				<Image
 					fill
+					sizes='100%'
 					src={barbershop.imageUrl}
 					alt={barbershop.name}
 					className='object-cover sm:pt-10 lg:pt-0 rounded-xl'
