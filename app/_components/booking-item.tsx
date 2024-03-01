@@ -76,7 +76,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 					<button className='min-w-full'>
 						<Card>
 							<CardContent className={isBookingPast ? 'flex p-0 grayscale' : 'flex p-0'}>
-								<div className='flex flex-[3] items-start flex-col gap-2 p-5'>
+								<div className='flex flex-[3] items-start flex-col gap-2 py-5 px-8'>
 									<Badge 
 										className='bg-[#221C3D] text-primary hover:bg-[#221C3D] w-fit'>
 										{isBookingPast ? 'Finalizado' : 'Confirmado'}

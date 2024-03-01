@@ -12,7 +12,8 @@ import { BookingItem } from '../_components/booking-item';
 import { BarbershopItem } from './_components/barbershop-item';
 import { WelcomeForUser } from './_components/welcome-user';
 
-import { ScrollArrowToRight } from '../_components/scroll-animate-arrow';
+import { CarouselComponent } from '../_components/CarouselComponent';
+import { CarouselItem } from '../_components/ui/carousel';
 
 export default async function Home() {
 
@@ -32,6 +33,9 @@ export default async function Home() {
 				date: {
 					gte: new Date(),
 				},
+			},
+			orderBy: {
+				date: 'asc',
 			},
 			include: {
 				service: true,
@@ -80,15 +84,18 @@ export default async function Home() {
 							<div className='relative flex flex-col gap-2 px-5 lg:px-0'>
 								<h2 className='text-lg text-gray-400 uppercase sm:text-sm'>Agendamentos confirmados</h2>
 
-								<div className='flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+								<div>
 									{confirmedBookings.length === 0 ? (
 										<p className='text-center mt-5 uppercase text-gray-400 tracking-wide p-6 bg-background border border-secondary/70 rounded-lg'>Você não possui agendamentos confirmados.</p>
 									) : (
 										<>
-											{confirmedBookings.map((booking) => (
-												<BookingItem key={booking.id} booking={booking} />
-											))}
-											<ScrollArrowToRight className='hidden lg:block z-50' />
+											<CarouselComponent>
+												{confirmedBookings.map((booking) => (
+													<CarouselItem key={booking.id} className='basis-full'>
+														<BookingItem booking={booking} />
+													</CarouselItem>
+												))}
+											</CarouselComponent>
 										</>
 									)}
 								</div>
@@ -99,14 +106,15 @@ export default async function Home() {
 					<div className='relative flex flex-[6] flex-col gap-2 min-w-80'>
 						<h2 className='px-5 text-lg text-gray-400 uppercase lg:px-0 sm:text-sm'>Recomendados</h2>
 
-						<div className='flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden pl-5 lg:px-0'>
-							{barbershops.map((barbershop:any) => (
-								<div key={barbershop.id} className='min-w-48 sm:min-w-60'>
-									<BarbershopItem barbershop={barbershop} />
-								</div>
-							))}
+						<div className='px-5 lg:px-0'>
+							<CarouselComponent>
+								{barbershops.map((barbershop:any) => (
+									<CarouselItem key={barbershop.id} className='basis-48 sm:basis-60'>
+										<BarbershopItem barbershop={barbershop} />
+									</CarouselItem>
+								))}
+							</CarouselComponent>
 						</div>
-						<ScrollArrowToRight className='hidden lg:block' />
 					</div>
 
 				</div>
@@ -116,14 +124,15 @@ export default async function Home() {
 				<div className='relative flex flex-col gap-2 min-w-80'>
 					<h2 className='px-5 text-lg text-gray-400 uppercase lg:px-0 lg:text-white lg:font-bold lg:capitalize'>Populares</h2>
 
-					<div className='flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden pl-5 lg:px-0'>
-						{popularBarbershops.map((barbershop:any) => (
-							<div key={barbershop.id} className='min-w-48 sm:min-w-60'>
-								<BarbershopItem barbershop={barbershop} />
-							</div>
-						))}
+					<div className='px-5 lg:px-0'>
+						<CarouselComponent>
+							{popularBarbershops.map((barbershop:any) => (
+								<CarouselItem key={barbershop.id} className='basis-48 sm:basis-60'>
+									<BarbershopItem barbershop={barbershop} />
+								</CarouselItem>
+							))}
+						</CarouselComponent>
 					</div>
-					<ScrollArrowToRight className='hidden lg:block' />
 				</div>
 			</div>
 		</div>

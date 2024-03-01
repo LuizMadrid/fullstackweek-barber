@@ -22,6 +22,9 @@ const BookingsPage = async () => {
 					gte: new Date(),
 				},
 			},
+			orderBy: {
+				date: 'asc',
+			},
 			include: {
 				service: true,
 				barbershop: true,
@@ -35,12 +38,17 @@ const BookingsPage = async () => {
 					lt: new Date(),
 				},
 			},
+			orderBy: {
+				date: 'desc',
+			},
 			include: {
 				service: true,
 				barbershop: true,
 			},
 		}),
 	]);
+
+
 
 	return (
 		<div className='px-5 py-6 md:flex md:flex-col lg:px-32'>
