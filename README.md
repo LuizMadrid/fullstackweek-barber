@@ -35,10 +35,21 @@ NEXT_AUTH_SECRET="..."
 
 ## Minhas Melhorias
 
-- Total responsividade nas telas disponíveis;
-- Caso o horário da reserva na data atual seja inferior ao horário atual, não é mostrada esta hora para o agendamento;
-- Loading com skeletons para uma melhor performance para o usuário;
-- Adicionado CRUD completo, com criação de barbearia, edição de dados, apagar barbearia/agendamento criado e leitura de dados.
+- Total responsividade nas telas disponíveis.
+- Caso o horário da reserva na data atual seja inferior ao horário atual, não é mostrada esta hora para o agendamento.
+- Loading com skeletons para uma melhor performance para o usuário.
+- Adicionado CRUD completo:
+    - CREATE | Crie sua propria barbearia no sistema.
+    - READ   | Consulte agendamentos, e caso tenha barbearia quem está agendado para hoje.
+    - UPDATE | Atualize as informações cadastradas, como imagens, nome, números de telefone e etc.
+    - DELETE | Caso queria excluir barbearias que estão atreladas ao seu ID é possível.
+
+## Melhorias Futuras
+
+- Comentários em barbearias e avaliações.
+- Funcionarios/as para cada barbearia, quando for agendar escolher o profissional.
+- Adicionar hórarios de funcionamento dinamicos para os proprietarios escolherem quando abrem e fecham.
+- Edicão de Serviços prestados de cada barbearia.
 
 ## Autor
 
