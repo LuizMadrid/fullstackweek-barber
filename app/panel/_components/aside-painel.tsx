@@ -89,12 +89,12 @@ export const AsidePainel = async ({ className }: AsidePainelProps) => {
 
 			<ul className='px-5 pt-4 pb-5 space-y-2 text-gray-400'>
 				<li>
-					<Link href='/panel/edit-info' passHref>
+					<Link href='/panel/create' passHref>
 						<Button
 							variant={'ghost'}
 							className='flex justify-start w-full gap-2'>
 							<LayoutPanelLeft size={16} />
-							Editar Informações
+							Criar Barbearia
 						</Button>
 					</Link>
 				</li>

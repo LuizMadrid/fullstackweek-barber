@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import { CalendarDays, Home, LayoutPanelLeft, LogOut, MenuIcon, Newspaper, PanelRightOpen } from 'lucide-react';
+import { CalendarDays, Home, LayoutPanelLeft, LogOut, MenuIcon, PanelRightOpen } from 'lucide-react';
 
 import { Button } from '@/app/_components/ui/button';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
@@ -58,12 +58,12 @@ export const HamburgerMenuPainel = () => {
 
 				<div className='px-5'>
 					<div className='flex flex-col gap-3'>
-						<Link href={'/edit-info'} passHref>
+						<Link href={'/panel/create'} passHref>
 							<Button
 								variant={'outline'} 
 								className='flex items-center justify-start w-full gap-2 rounded-lg'>
 								<LayoutPanelLeft size={16} />
-								Editar Informações
+								Criar Barbearia
 							</Button>
 						</Link>
 
@@ -87,16 +87,7 @@ export const HamburgerMenuPainel = () => {
 							</Button>
 						</Link>
 
-						<Link href={'/create'} passHref>
-							<Button 
-								variant={'outline'}
-								className='flex items-center justify-start w-full gap-2 rounded-lg'>
-								<Newspaper size={16} />
-									Criar Barbearia
-							</Button>
-						</Link>
-
-						<Link href={'/painel'} passHref>
+						<Link href={'/panel'} passHref>
 							<Button 
 								variant={'outline'}
 								className='flex items-center justify-start w-full gap-2 rounded-lg'>

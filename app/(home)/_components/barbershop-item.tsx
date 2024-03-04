@@ -49,8 +49,8 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 
 					<div className='flex flex-[3] flex-col justify-between items-stretch gap-1 h-36 p-2'>
 						<div>
-							<h2 className='text-lg font-bold truncate'>{barbershop.name}</h2>
-							<p className='text-sm text-gray-400'>{barbershop.address}</p>
+							<h2 className='text-lg font-bold capitalize truncate'>{barbershop.name}</h2>
+							<p className='text-sm text-gray-400 capitalize'>{barbershop.address}</p>
 						</div>
 						
 						<Link href={`/barbershops/${barbershop.id}`} passHref>

@@ -11,7 +11,7 @@ import { SignOutDialog } from './signout-dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Dialog, DialogTrigger } from './ui/dialog';
 
-import { CalendarDays, Home, LogIn, LogOut, MenuIcon, Newspaper, PanelRightOpen } from 'lucide-react';
+import { CalendarDays, Home, LogIn, LogOut, MenuIcon, PanelRightOpen } from 'lucide-react';
 
 export const HamburgerMenu = () => {
 
@@ -95,16 +95,7 @@ export const HamburgerMenu = () => {
 								</Button>
 							</Link>
 
-							<Link href={'/create'} passHref>
-								<Button 
-									variant={'outline'}
-									className='flex items-center justify-start w-full gap-2 rounded-lg'>
-									<Newspaper size={16} />
-									Criar Barbearia
-								</Button>
-							</Link>
-
-							<Link href={'/painel'} passHref>
+							<Link href={'/panel'} passHref>
 								<Button 
 									variant={'outline'}
 									className='flex items-center justify-start w-full gap-2 rounded-lg'>

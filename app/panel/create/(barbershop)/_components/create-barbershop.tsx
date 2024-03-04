@@ -2,31 +2,25 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { PatternFormat } from 'react-number-format';
- 
-import { Prisma } from '@prisma/client';
+
+import { Loader2 } from 'lucide-react';
 
 import { UploadButton } from '@/utils/uploadthing';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
 import { Input } from '@/app/_components/ui/input';
+import { Button } from '@/app/_components/ui/button';
 import { Textarea } from '@/app/_components/ui/textarea';
 import { Separator } from '@/app/_components/ui/separator';
-import { Loader2 } from 'lucide-react';
-import { Button } from '@/app/_components/ui/button';
+import { Dialog } from '@/app/_components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/app/_components/ui/form';
+import { SignInDialog } from '@/app/_components/signin-dialog';
 import { redirect } from 'next/navigation';
-
-interface BarbershopDataProps {
-  barbershop: Prisma.BarbershopGetPayload<{
-    include: {
-      user: true;
-    };
-  }>
-}
 
 const BarbershopDataSchema = z.object({
 	name: z.string()
@@ -36,12 +30,10 @@ const BarbershopDataSchema = z.object({
 			return name.trim().split(' ').map(word => {
 				return word[0].toUpperCase().concat(word.substring(1));
 			}).join(' ');
-		})
-		.optional(),
+		}),
 
 	address: z.string()
-		.min(3, 'Endereço da barbearia deve ter no mínimo 3 caracteres')
-		.optional(),
+		.min(3, 'Endereço da barbearia deve ter no mínimo 3 caracteres'),
 
 	about: z.string()
 		.min(3, 'Sobre a barbearia deve ter no mínimo 3 caracteres')
@@ -52,56 +44,59 @@ const BarbershopDataSchema = z.object({
 		.optional(),
 
 	phone1: z.string()
-		.min(11, 'Telefones devem ter no mínimo 11 caracteres')
-		.optional(),
+		.min(11, 'Telefones devem ter no mínimo 11 caracteres'),
 	
 	phone2: z.string()
-		.min(11, 'Telefones devem ter no mínimo 11 caracteres')
-		.optional(),
+		.min(11, 'Telefones devem ter no mínimo 11 caracteres'),
 });
 
 type BarbershopData = z.infer<typeof BarbershopDataSchema>;
 
-export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
+export const CreateBarbershop = () => {
 
 	const [fileUrl, setFileUrl] = useState('');
-	const [submitIsLoading, setSubmitIsLoading] = useState(false);
 	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
+	const [submitIsLoading, setSubmitIsLoading] = useState(false);
+	const { status } = useSession();
 
 	const form = useForm<BarbershopData>({
 		resolver: zodResolver(BarbershopDataSchema),
 	});
 
-	async function updateBarbershop(data: BarbershopData) {
+	async function createUser(data: BarbershopData) {
 		setSubmitIsLoading(true);
 		try {
-			await fetch('/panel/update/actions/update-barbershop', {
-				method: 'PUT',
-				body: JSON.stringify({
-					barbershopId: barbershop.id,
-					...data,
-				}),
+			await fetch('/panel/create/actions/create-barbershop', {
+				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				body: JSON.stringify(data),
 			});
 
 			setIsCreatedSuccessfully(true);
 		} catch (error) {
-			console.error('Error creating barbershop', error);
+			console.error('Error creating barbershop in page', error);
 		}
-		setSubmitIsLoading(false);
+	}
+
+	if (status === 'unauthenticated') {
+		return (
+			<Dialog open={true} onOpenChange={() => {}}>
+				<SignInDialog />
+			</Dialog>
+		);
 	}
 
 	if (isCreatedSuccessfully) {
 		return redirect('/panel');
 	}
-  
+
 	return (
 		<>
 			<Form {...form}>
 				<form
-					onSubmit={form.handleSubmit(updateBarbershop)}>
+					onSubmit={form.handleSubmit(createUser)}>
 
 					<div className='flex flex-col 2lg:flex-row 2sm:gap-6'>
 						<div className='flex flex-col justify-between 2lg:pr-6 space-y-4 2lg:border-r 2lg:border-secondary 2lg:min-w-[512px]'>
@@ -109,7 +104,7 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 								<Image 
 									fill
 									sizes='100%'
-									src={barbershop.imageUrl ? barbershop.imageUrl : fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
+									src={fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
 									alt={form.watch('name') || 'Barbearia'} 
 									className='object-cover rounded-lg'
 								/>
@@ -140,11 +135,13 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 							/>
 						</div>
 
-						<Separator orientation='horizontal' className='2lg:hidden w-full h-[1px] bg-secondary my-6' />
-
+						<Separator 
+							orientation='horizontal' 
+							className='2lg:hidden w-full h-[1px] bg-secondary my-6' 
+						/>
+							
 						<div className='flex flex-col w-full gap-4'>
 							<div className='flex flex-row flex-wrap justify-between gap-4'>
-
 								<div className='grow sm:min-w-72'>
 									<label className='text-sm font-bold text-gray-400'>Nome da barbearia:</label>
 									<FormField
@@ -154,8 +151,7 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 											<FormItem>
 												<FormControl>
 													<Input 
-														placeholder='Nome da barbearia'
-														defaultValue={barbershop.name}
+														placeholder='Nome da barbearia' 
 														className='p-2 text-white rounded-md bg-secondary'
 														{...field}
 													/>
@@ -175,8 +171,7 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 											<FormItem>
 												<FormControl>
 													<Input 
-														placeholder='Endereço da barbearia'
-														defaultValue={barbershop.address}
+														placeholder='Endereço da barbearia' 
 														className='p-2 text-white rounded-md bg-secondary'
 														{...field}
 													/>
@@ -198,7 +193,6 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 											<FormControl>
 												<Textarea 
 													placeholder='Sobre a barbearia'
-													defaultValue={barbershop.about}
 													maxLength={400}
 													className='p-2 text-white rounded-md bg-secondary min-h-44 max-h-56'
 													{...field}
@@ -209,9 +203,8 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 									)}
 								/>
 							</div>
-					
-							<div className='flex flex-row flex-wrap justify-between gap-4'>
 
+							<div className='flex flex-row flex-wrap justify-between gap-4'>
 								<div className='grow sm:min-w-72'>
 									<label className='text-sm font-bold text-gray-400'>Telefone 1:</label>
 									<FormField
@@ -224,13 +217,12 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 														format='(##) #####-####'
 														placeholder='(99) 99999-9999'
 														autoComplete='tel-national'
-														defaultValue={barbershop.phone1}
 														customInput={Input}
 														className='p-2 text-white rounded-md bg-secondary'
 														{...field}
 													/>
 												</FormControl>
-												<FormMessage />
+												<FormMessage className='text-sm tracking-tight text-red-600' />
 											</FormItem>
 										)}
 									/>
@@ -246,15 +238,14 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 												<FormControl>
 													<PatternFormat
 														format='(##) #####-####'
-														placeholder='(99) 99999-9999'
+														placeholder='(99) 99292-9292'
 														autoComplete='tel-national'
-														defaultValue={barbershop.phone2}
 														customInput={Input}
 														className='p-2 text-white rounded-md bg-secondary'
 														{...field}
 													/>
 												</FormControl>
-												<FormMessage />
+												<FormMessage className='text-sm tracking-tight text-red-600' />
 											</FormItem>
 										)}
 									/>
@@ -263,7 +254,10 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 						</div>
 					</div>
 
-					<Separator orientation='horizontal' className='w-full h-[1px] bg-secondary my-6' />
+					<Separator 
+						orientation='horizontal' 
+						className='w-full h-[1px] bg-secondary my-6' 
+					/>
 
 					<div className='flex justify-center w-2/6 mx-auto'>
 						<Button 
@@ -276,11 +270,11 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 									Carregando...
 								</p>
 							) : (
-								<p>Atualizar</p>
+								<p>Criar</p>
 							)}
 						</Button>
 					</div>
-
+          
 				</form>
 			</Form>
 		</>

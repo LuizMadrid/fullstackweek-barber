@@ -9,7 +9,7 @@ import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
 
-import { CalendarDays, Home, LogOut, Newspaper, PanelRightOpen } from 'lucide-react';
+import { CalendarDays, Home, LogOut, PanelRightOpen } from 'lucide-react';
 
 export const DropdownMenu = () => {
 
@@ -80,14 +80,6 @@ export const DropdownMenu = () => {
 								variant={'dropbar'}>
 								<CalendarDays size={16} />
                 Agendamentos
-							</Button>
-						</Link>
-
-						<Link href={'/create'} passHref>
-							<Button 
-								variant={'dropbar'}>
-								<Newspaper size={16} />
-                Criar Barbearia
 							</Button>
 						</Link>
 
