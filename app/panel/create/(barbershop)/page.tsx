@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
+
 import { DropdownMenu } from '@/app/_components/dropdown-menu';
-import { HamburgerMenuPainel } from '../../_components/hamburger-menu-painel';
 import { CreateBarbershop } from './_components/create-barbershop';
+import { HamburgerMenuPainel } from '../../_components/hamburger-menu-painel';
+
+export const metadata: Metadata = {
+	title: 'Criar Barbearia | FSW Barber',
+};
 
 const CreateBarbershopScreen = () => {
 	return (

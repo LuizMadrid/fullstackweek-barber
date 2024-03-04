@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 import { AsidePainel } from './_components/aside-painel';
 
 export const metadata: Metadata = {
 	icons: {
 		shortcut: { url: '/favicon.svg' },
 	},
-	title: 'FSW Barber',
+	title: {
+		template: '%s | FSW Barber',
+		default: 'FSW Barber',
+	},
 	description: 'Catálogos de barbearias em sua mão',
 };
 

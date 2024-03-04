@@ -1,12 +1,28 @@
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+
 import { authOptions } from '@/app/_lib/auth';
 import { getServerSession } from 'next-auth';
 
-import { redirect } from 'next/navigation';
 import prisma from '@/app/_lib/prisma';
 
-import { HamburgerMenuPainel } from '../../_components/hamburger-menu-painel';
 import { DropdownMenu } from '@/app/_components/dropdown-menu';
 import { EditBarbershopInfo } from './_components/edit-barbershop-info';
+import { HamburgerMenuPainel } from '../../_components/hamburger-menu-painel';
+
+export async function generateMetadata({
+	params,
+}: BarbershopEditPageProps): Promise<Metadata> {
+	const barbershop = await prisma.barbershop.findUnique({
+		where: {
+			id: params.id,
+		},
+	});
+
+	return {
+		title: `Editar ${barbershop?.name  ?? 'Barbearia'}`,
+	};
+}
 
 
 interface BarbershopEditPageProps {

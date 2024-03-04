@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../_lib/auth';
 
@@ -9,6 +11,10 @@ import { UserBarbershops } from './_components/user-barbershops';
 import { TodayBookingUser } from './_components/today-booking-user';
 import { CarouselComponent } from '../_components/CarouselComponent';
 import { HamburgerMenuPainel } from './_components/hamburger-menu-painel';
+
+export const metadata: Metadata = {
+	title: 'Painel | FSW Barber',
+};
 
 const PanelPage = async () => {
 
