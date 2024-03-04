@@ -16,8 +16,8 @@ interface UserBarbershopsProps {
 
 export const UserBarbershops = ({ barbershop }: UserBarbershopsProps) => {
 	return (
-		<Link href={`/barbershops/${barbershop.id}`} passHref>
-			<Card className='group border-transparent p-0'>
+		<Link href={`/panel/update/${barbershop.id}`} passHref>
+			<Card className='p-0 border-transparent group'>
 				<CardContent className='p-0 pb-2 space-y-4'>
 					<div className='flex flex-[4] h-44 w-full relative overflow-hidden rounded-t-xl'>
 						<Image 
@@ -35,7 +35,7 @@ export const UserBarbershops = ({ barbershop }: UserBarbershopsProps) => {
 							className='w-full h-px bg-secondary'
 						/>
             
-						<h1 className='uppercase text-gray-400 truncate text-center'>{barbershop.name}</h1>
+						<h1 className='text-center text-gray-400 uppercase truncate'>{barbershop.name}</h1>
 					</div>
 				</CardContent>
 			</Card>

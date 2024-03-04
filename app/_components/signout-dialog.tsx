@@ -1,10 +1,10 @@
 import { signOut } from 'next-auth/react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
 import {
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
+	DialogClose
 } from './ui/dialog';
 
 import { Button } from './ui/button';
@@ -27,13 +27,13 @@ export const SignOutDialog = () => {
 			</DialogHeader>
 
 			<div className='flex justify-between w-full gap-4'>
-				<DialogPrimitive.Close asChild>
+				<DialogClose asChild>
 					<Button 
 						variant={'secondary'}
 						className='flex items-center justify-center w-full gap-2 font-bold min-w-32'>
 						Cancelar
 					</Button>
-				</DialogPrimitive.Close>
+				</DialogClose>
 
 				<Button 
 					variant={'destructive'}

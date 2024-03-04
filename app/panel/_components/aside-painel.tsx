@@ -2,10 +2,11 @@ import prisma from '@/app/_lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/_lib/auth';
 
-import { CalendarDays, LayoutPanelLeft, Newspaper, TimerReset } from 'lucide-react';
+import { CalendarDays, LayoutPanelLeft, Newspaper } from 'lucide-react';
 
 import { Button } from '@/app/_components/ui/button';
 import { Separator } from '@/app/_components/ui/separator';
+import Link from 'next/link';
 
 interface AsidePainelProps {
 	className?: string;
@@ -49,31 +50,35 @@ export const AsidePainel = async ({ className }: AsidePainelProps) => {
 		<div className={`border-r border-secondary ${className}`}>
 			<ul className='px-5 pt-5 space-y-4 text-gray-400'>
 				<li>
-					<Button
-						variant={'ghost'}
-						className='flex items-center justify-between w-full space-x-4 cursor-default'>
-						<p className='flex gap-2'>
-							<CalendarDays size={16} />
+					<Link href={'/panel'} passHref>
+						<Button
+							variant={'ghost'}
+							className='flex items-center justify-between w-full space-x-4'>
+							<p className='flex gap-2'>
+								<CalendarDays size={16} />
               Agendados Hoje
-						</p>
-						<span className='px-2 font-bold text-white rounded-md bg-primary/50'>
-							{todayBookings.length}
-						</span>
-					</Button>
+							</p>
+							<span className='px-2 font-bold text-white rounded-md bg-primary/50'>
+								{todayBookings.length}
+							</span>
+						</Button>
+					</Link>
 				</li>
 
 				<li>
-					<Button
-						variant={'ghost'}
-						className='flex items-center justify-between w-full space-x-4 cursor-default'>
-						<p className='flex gap-2'>
-							<Newspaper size={16} />
+					<Link href={'/panel'} passHref>
+						<Button
+							variant={'ghost'}
+							className='flex items-center justify-between w-full space-x-4'>
+							<p className='flex gap-2'>
+								<Newspaper size={16} />
               Suas Barbearias
-						</p>
-						<span className='px-2 font-bold text-white rounded-md bg-primary/50'>
-							{myBarbershop.length}
-						</span>
-					</Button>
+							</p>
+							<span className='px-2 font-bold text-white rounded-md bg-primary/50'>
+								{myBarbershop.length}
+							</span>
+						</Button>
+					</Link>
 				</li>
 
 				<Separator 
@@ -84,22 +89,14 @@ export const AsidePainel = async ({ className }: AsidePainelProps) => {
 
 			<ul className='px-5 pt-4 pb-5 space-y-2 text-gray-400'>
 				<li>
-					<Button
-						variant={'ghost'}
-						className='flex justify-start w-full gap-2'>
-						<LayoutPanelLeft size={16} />
-						Editar Informações
-					</Button>
-				</li>
-
-				<li>
-					<Button
-						variant={'ghost'}
-						className='flex justify-start w-full gap-2'
-						disabled>
-						<TimerReset size={16} />
-						Editar Horários
-					</Button>
+					<Link href='/panel/edit-info' passHref>
+						<Button
+							variant={'ghost'}
+							className='flex justify-start w-full gap-2'>
+							<LayoutPanelLeft size={16} />
+							Editar Informações
+						</Button>
+					</Link>
 				</li>
 			</ul>
         

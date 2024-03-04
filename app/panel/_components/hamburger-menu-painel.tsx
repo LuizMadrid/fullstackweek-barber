@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import { CalendarDays, Home, LayoutPanelLeft, LogOut, MenuIcon, Newspaper, PanelRightOpen, TimerReset } from 'lucide-react';
+import { CalendarDays, Home, LayoutPanelLeft, LogOut, MenuIcon, Newspaper, PanelRightOpen } from 'lucide-react';
 
 import { Button } from '@/app/_components/ui/button';
 import { SignOutDialog } from '@/app/_components/signout-dialog';
@@ -58,7 +58,7 @@ export const HamburgerMenuPainel = () => {
 
 				<div className='px-5'>
 					<div className='flex flex-col gap-3'>
-						<Link href={'/'} passHref>
+						<Link href={'/edit-info'} passHref>
 							<Button
 								variant={'outline'} 
 								className='flex items-center justify-start w-full gap-2 rounded-lg'>
@@ -67,17 +67,7 @@ export const HamburgerMenuPainel = () => {
 							</Button>
 						</Link>
 
-						<Link href={'/'} passHref>
-							<Button
-								variant={'outline'} 
-								className='flex items-center justify-start w-full gap-2 rounded-lg'
-								disabled>
-								<TimerReset size={16} />
-								Editar Horários
-							</Button>
-						</Link>
-
-						<Separator orientation='horizontal' className='w-full h-px bg-secondary my-4' />
+						<Separator orientation='horizontal' className='w-full h-px my-4 bg-secondary' />
 
 						<Link href={'/'} passHref>
 							<Button 

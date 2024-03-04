@@ -83,6 +83,7 @@ export async function POST(request: Request) {
 		NextResponse.json({ message: 'Barbershop created' });
 		
 		revalidatePath('/');
+		revalidatePath('/panel');
 
 		return new NextResponse(
 			JSON.stringify({

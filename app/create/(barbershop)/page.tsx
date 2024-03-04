@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { z } from 'zod';
@@ -58,14 +58,14 @@ const CreateBarbershopScreen = () => {
 
 	const [fileUrl, setFileUrl] = useState('');
 	const [isCreatedSuccessfully, setIsCreatedSuccessfully] = useState(false);
-	const [submitIsLoading, setSubmitIsLoading] = React.useState(false);
+	const [submitIsLoading, setSubmitIsLoading] = useState(false);
 	const { status } = useSession();
 
 	const form = useForm<BarbershopData>({
 		resolver: zodResolver(BarbershopDataSchema),
 	});
 
-	async function createUser(data: BarbershopData,) {
+	async function createUser(data: BarbershopData) {
 		setSubmitIsLoading(true);
 		try {
 			await fetch('create/actions/create-barbershop', {

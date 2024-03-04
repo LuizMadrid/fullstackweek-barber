@@ -3,12 +3,14 @@ import { authOptions } from '../_lib/auth';
 
 import prisma from '../_lib/prisma';
 
+import { CarouselItem } from '../_components/ui/carousel';
 import { DropdownMenu } from '../_components/dropdown-menu';
-import { TodayBookingUser } from './_components/today-booking-user';
 import { UserBarbershops } from './_components/user-barbershops';
+import { TodayBookingUser } from './_components/today-booking-user';
+import { CarouselComponent } from '../_components/CarouselComponent';
 import { HamburgerMenuPainel } from './_components/hamburger-menu-painel';
 
-const page = async () => {
+const PanelPage = async () => {
 
 	const session = await getServerSession(authOptions);
 
@@ -74,25 +76,35 @@ const page = async () => {
 					<div className='relative space-y-2'>
 						<h1 className='text-lg font-bold tracking-wide text-gray-400 capitalize'>Suas barbearias</h1>
 
-						<div className='flex gap-4 overflow-x-scroll [&::-webkit-scrollbar]:hidden'>
-							{barbershops.map((barbershop) => (
-								<div key={barbershop.id}  className='min-w-48 sm:min-w-60'>
-									<UserBarbershops barbershop={barbershop as any} />
-								</div>
-							))}
-						</div>
+						{barbershops.length === 0 ? (
+							<p className='p-6 mt-5 tracking-wide text-center text-gray-400 uppercase rounded-lg bg-card'>Você não criou barbearias ainda.</p>
+						) : (
+							<div className='px-5'>
+								<CarouselComponent>
+									{barbershops.map((barbershop) => (
+										<CarouselItem key={barbershop.id} className='basis-48 sm:basis-60'>
+											<UserBarbershops barbershop={barbershop as any} />
+										</CarouselItem>
+									))}
+								</CarouselComponent>
+							</div>
+						)}
 					</div>
 
 					<div className='relative space-y-2'>
 						<h1 className='text-lg font-bold tracking-wide text-gray-400 capitalize'>Agendados Hoje</h1>
 
-						<div className='grid grid-flow-col gap-4 w-fit'>
-							{todaysBookings.map((booking) => (
-								<div key={booking.id}>
-									<TodayBookingUser bookings={booking as any} />
-								</div>
-							))}
-						</div>
+						{todaysBookings.length === 0 ? (
+							<p className='p-6 mt-5 tracking-wide text-center text-gray-400 uppercase rounded-lg bg-card'>Você não possui serviços agendamentos para hoje.</p>
+						) : (
+							<div className='grid grid-flow-col gap-4 w-fit'>
+								{todaysBookings.map((booking) => (
+									<div key={booking.id}>
+										<TodayBookingUser bookings={booking as any} />
+									</div>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -100,4 +112,4 @@ const page = async () => {
 	);
 };
 
-export default page;
+export default PanelPage;

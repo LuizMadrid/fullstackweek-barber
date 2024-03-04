@@ -91,7 +91,7 @@ export const DropdownMenu = () => {
 							</Button>
 						</Link>
 
-						<Link href={'/painel'} passHref>
+						<Link href={'/panel'} passHref>
 							<Button 
 								variant={'dropbar'}>
 								<PanelRightOpen size={16} />
