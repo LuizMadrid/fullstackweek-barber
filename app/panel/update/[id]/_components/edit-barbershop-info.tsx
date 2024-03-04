@@ -109,7 +109,7 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 								<Image 
 									fill
 									sizes='100%'
-									src={barbershop.imageUrl ? barbershop.imageUrl : fileUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
+									src={fileUrl ? fileUrl : barbershop.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
 									alt={form.watch('name') || 'Barbearia'} 
 									className='object-cover rounded-lg'
 								/>
