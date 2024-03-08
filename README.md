@@ -24,6 +24,8 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 GOOGLE_CLIENT_ID="..."
 GOOGLE_CLIENT_SECRET="..."
 NEXT_AUTH_SECRET="..."
+UPLOADTHING_SECRET="..."   Obs: Para upload de imagens das barbearias.
+UPLOADTHING_APP_ID="..."   Obs: Para upload de imagens das barbearias.
 </code></pre>
   
 - Executar o projeto.
@@ -49,7 +51,7 @@ NEXT_AUTH_SECRET="..."
 - Comentários em barbearias e avaliações.
 - Funcionarios/as para cada barbearia, quando for agendar escolher o profissional.
 - Adicionar hórarios de funcionamento dinamicos para os proprietarios escolherem quando abrem e fecham.
-- Edicão de Serviços prestados de cada barbearia.
+- Edição de Serviços prestados de cada barbearia.
 
 ## Autor
 
