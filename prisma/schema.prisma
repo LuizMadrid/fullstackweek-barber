@@ -43,7 +43,7 @@ model Service {
   description  String
   imageUrl     String
   barbershopId String
-  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id], onDelete: Cascade)
   bookings     Booking[]
 }
 
@@ -54,7 +54,7 @@ model Booking {
   barbershopId String
   user         User       @relation(fields: [userId], references: [id])
   service      Service    @relation(fields: [serviceId], references: [id])
-  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id], onDelete: Cascade)
   date         DateTime
 }
 

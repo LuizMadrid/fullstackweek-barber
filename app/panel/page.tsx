@@ -11,6 +11,8 @@ import { UserBarbershops } from './_components/user-barbershops';
 import { TodayBookingUser } from './_components/today-booking-user';
 import { CarouselComponent } from '../_components/CarouselComponent';
 import { HamburgerMenuPainel } from './_components/hamburger-menu-painel';
+import { Dialog, DialogTrigger } from '../_components/ui/dialog';
+import { ActionModal } from './_components/action-modal';
 
 export const metadata: Metadata = {
 	title: 'Painel | FSW Barber',
@@ -89,7 +91,13 @@ const PanelPage = async () => {
 								<CarouselComponent>
 									{barbershops.map((barbershop) => (
 										<CarouselItem key={barbershop.id} className='basis-48 sm:basis-60'>
-											<UserBarbershops barbershop={barbershop as any} />
+											<Dialog>
+												<DialogTrigger asChild>
+													<UserBarbershops barbershop={barbershop as any} />
+												</DialogTrigger>
+
+												<ActionModal barbershop={barbershop as any} />
+											</Dialog>
 										</CarouselItem>
 									))}
 								</CarouselComponent>
