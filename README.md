@@ -27,10 +27,10 @@ NEXT_AUTH_SECRET="..."
 UPLOADTHING_SECRET="..."   Obs: Para upload de imagens das barbearias.
 UPLOADTHING_APP_ID="..."   Obs: Para upload de imagens das barbearias.
 </code></pre>
-  
 - Executar o projeto.
 
 <pre><code>npm i</code></pre>
+
 - "npm i" serve para instalar módulos e dependências que o projeto pode precisar.
 <pre><code>npm run dev </code></pre>
 - "npm run dev" é para dar início no projeto para ser visualizado.
@@ -41,10 +41,10 @@ UPLOADTHING_APP_ID="..."   Obs: Para upload de imagens das barbearias.
 - Caso o horário da reserva na data atual seja inferior ao horário atual, não é mostrada esta hora para o agendamento.
 - Loading com skeletons para uma melhor performance para o usuário.
 - Adicionado CRUD completo:
-    - CREATE | Crie sua propria barbearia no sistema.
-    - READ   | Consulte agendamentos, e caso tenha barbearia quem está agendado para hoje.
-    - UPDATE | Atualize as informações cadastradas, como imagens, nome, números de telefone e etc.
-    - DELETE | Caso queria excluir barbearias que estão atreladas ao seu ID é possível.
+  - CREATE | Crie sua propria barbearia no sistema.
+  - READ | Consulte agendamentos, e caso tenha barbearia quem está agendado para hoje.
+  - UPDATE | Atualize as informações cadastradas, como imagens, nome, números de telefone e etc.
+  - DELETE | Caso queria excluir barbearias que estão atreladas ao seu ID é possível.
 
 ## Melhorias Futuras
 
