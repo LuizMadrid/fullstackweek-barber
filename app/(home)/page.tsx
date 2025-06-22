@@ -39,7 +39,19 @@ export default async function Home() {
 			},
 			include: {
 				service: true,
-				barbershop: true,
+				barbershop: {
+					select: {
+						id: true,
+						userId: true,
+						name: true,
+						street: true,
+						number: true,
+						imageUrl: true,
+						about: true,
+						phone1: true,
+						phone2: true,
+					},
+				},
 			},
 		}) : Promise.resolve([])
 	]);

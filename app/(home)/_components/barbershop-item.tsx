@@ -55,7 +55,7 @@ export const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
 								{barbershop.name}
 							</h2>
 							<p className="text-sm text-gray-400 capitalize">
-								{barbershop.address}
+								{barbershop.street}, {barbershop.number}
 							</p>
 						</div>
 

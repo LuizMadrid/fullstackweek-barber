@@ -21,7 +21,7 @@ export async function PUT(request: Request) {
 	}
 
 	const req = await request.json();
-	const { barbershopId, name, address, about, imageUrl, phone1, phone2 } = req;
+	const { barbershopId, name, street, number, about, imageUrl, phone1, phone2 } = req;
 
 	try {
 		await prisma.barbershop.update({
@@ -30,7 +30,8 @@ export async function PUT(request: Request) {
 			},
 			data: {
 				name,
-				address,
+				street,
+				number,
 				about,
 				imageUrl,
 				phone1,

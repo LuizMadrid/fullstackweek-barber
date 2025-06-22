@@ -67,14 +67,15 @@ export async function POST(request: Request) {
 	const userId = (session.user as any).id;
 
 	const req = await request.json();
-	const { name, address, about, imageUrl, phone1, phone2 } = req;
+	const { name, street, number, about, imageUrl, phone1, phone2 } = req;
 
 	try {
 		await prisma.barbershop.create({
 			data: {
 				userId: userId,
 				name,
-				address,
+				street,
+				number,
 				about,
 				imageUrl,
 				phone1,

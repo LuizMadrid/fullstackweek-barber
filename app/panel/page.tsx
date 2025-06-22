@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 	title: 'Painel | FSW Barber',
 };
 
+export const dynamic = 'force-dynamic';
+
 const PanelPage = async () => {
 	const session = await getServerSession(authOptions);
 

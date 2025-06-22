@@ -53,7 +53,7 @@ export const BarbershopInfo = ({ barbershop }: BarbershopDetailsProps) => {
 
 					<p className="flex items-center gap-2 text-sm sm:text-base">
 						<MapPin size={16} className="text-primary fill-primary" />
-						{barbershop.address}
+						{barbershop.street}, {barbershop.number}
 					</p>
 				</div>
 

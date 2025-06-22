@@ -11,40 +11,52 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String?      @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  bookings      Booking[]
-  Barbershop    Barbershop[]
+  id               String           @id @default(cuid())
+  name             String?
+  email            String?          @unique
+  emailVerified    DateTime?
+  image            String?
+  role             UserRole         @default(CLIENT)
+  createdAt        DateTime         @default(now())
+  accounts         Account[]
+  sessions         Session[]
+  bookings         Booking[]
+  Barbershop       Barbershop[]
+  serviceHistories ServiceHistory[]
+}
+
+enum UserRole {
+  CLIENT
+  BARBER
+  ADMIN
 }
 
 model Barbershop {
-  id       String    @id @default(uuid())
-  userId   String
-  name     String
-  address  String
-  imageUrl String
-  about    String    @default("We are a barbershop")
-  phone1   String    @unique
-  phone2   String    @unique
-  user     User      @relation(fields: [userId], references: [id])
-  services Service[]
-  bookings Booking[]
+  id               String           @id @default(uuid())
+  userId           String
+  name             String
+  street           String           @default("Rua não informada")
+  number           String           @default("S/N")
+  imageUrl         String           @default("https://l2hcolg1gr.ufs.sh/f/qVD1DsGQHGN7X9XkJpW51Sj6VePuoINO87sF4AmvY32gdnTa")
+  about            String           @default("We are a barbershop")
+  phone1           String           @unique
+  phone2           String           @unique
+  user             User             @relation(fields: [userId], references: [id])
+  services         Service[]
+  bookings         Booking[]
+  serviceHistories ServiceHistory[]
 }
 
 model Service {
-  id           String     @id @default(uuid())
-  name         String
-  price        Decimal    @db.Decimal(10, 2)
-  description  String
-  imageUrl     String
-  barbershopId String
-  barbershop   Barbershop @relation(fields: [barbershopId], references: [id], onDelete: Cascade)
-  bookings     Booking[]
+  id               String           @id @default(uuid())
+  name             String
+  price            Decimal          @db.Decimal(10, 2)
+  description      String
+  imageUrl         String           @default("https://l2hcolg1gr.ufs.sh/f/qVD1DsGQHGN7X9XkJpW51Sj6VePuoINO87sF4AmvY32gdnTa")
+  barbershopId     String
+  barbershop       Barbershop       @relation(fields: [barbershopId], references: [id], onDelete: Cascade)
+  bookings         Booking[]
+  serviceHistories ServiceHistory[]
 }
 
 model Booking {
@@ -91,4 +103,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model ServiceHistory {
+  id           String     @id @default(uuid())
+  userId       String
+  serviceId    String
+  barbershopId String
+  date         DateTime   @default(now())
+  user         User       @relation(fields: [userId], references: [id])
+  service      Service    @relation(fields: [serviceId], references: [id])
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
 }

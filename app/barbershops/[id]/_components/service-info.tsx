@@ -82,7 +82,7 @@ export const ServiceInfo = ({ barbershop }: ServiceInfoProps) => {
 										</h3>
 
 										<p className="text-xs text-gray-400 md:text-sm">
-											{barbershop?.address}
+											{barbershop?.street}, {barbershop?.number}
 										</p>
 									</div>
 								</CardContent>

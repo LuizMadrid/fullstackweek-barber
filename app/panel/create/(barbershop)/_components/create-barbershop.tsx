@@ -30,7 +30,7 @@ import { redirect } from 'next/navigation';
 
 const BarbershopDataSchema = z.object({
 	name: z
-		.string()
+		.string({ required_error: 'O nome da barbearia é obrigatório' })
 		.min(3, 'Nome da barbearia deve ter no mínimo 3 caracteres')
 		.max(30, 'Nome da barbearia deve ter no máximo 30 caracteres')
 		.transform((name) => {
@@ -43,9 +43,13 @@ const BarbershopDataSchema = z.object({
 				.join(' ');
 		}),
 
-	address: z
-		.string()
-		.min(3, 'Endereço da barbearia deve ter no mínimo 3 caracteres'),
+	street: z
+		.string({ required_error: 'A rua da barbearia é obrigatória' })
+		.min(3, 'Rua da barbearia deve ter no mínimo 3 caracteres'),
+
+	number: z
+		.string({ required_error: 'O número da barbearia é obrigatório' })
+		.min(1, 'Número da barbearia deve ser informado'),
 
 	about: z
 		.string()
@@ -53,11 +57,13 @@ const BarbershopDataSchema = z.object({
 		.max(400, 'Sobre a barbearia deve ter no máximo 400 caracteres')
 		.optional(),
 
-	imageUrl: z.string().optional(),
+	imageUrl: z
+		.string({ required_error: 'A imagem é obrigatória' })
+		.min(1, 'A imagem é obrigatória'),
 
-	phone1: z.string().min(11, 'Telefones devem ter no mínimo 11 caracteres'),
+	phone1: z.string({ required_error: 'O telefone 1 é obrigatório' }).min(11, 'Telefones devem ter no mínimo 11 caracteres'),
 
-	phone2: z.string().min(11, 'Telefones devem ter no mínimo 11 caracteres'),
+	phone2: z.string({ required_error: 'O telefone 2 é obrigatório' }).min(11, 'Telefones devem ter no mínimo 11 caracteres'),
 });
 
 type BarbershopData = z.infer<typeof BarbershopDataSchema>;
@@ -154,7 +160,7 @@ export const CreateBarbershop = () => {
 							<div className="flex flex-row flex-wrap justify-between gap-4">
 								<div className="grow sm:min-w-72">
 									<label className="text-sm font-bold text-gray-400">
-                    Nome da barbearia:
+										<span className="text-red-500">*</span> Nome da barbearia:
 									</label>
 									<FormField
 										control={form.control}
@@ -176,16 +182,38 @@ export const CreateBarbershop = () => {
 
 								<div className="grow sm:min-w-72">
 									<label className="text-sm font-bold text-gray-400">
-                    Endereço:
+										<span className="text-red-500">*</span> Rua:
 									</label>
 									<FormField
 										control={form.control}
-										name="address"
+										name="street"
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
 													<Input
-														placeholder="Endereço da barbearia"
+														placeholder="Rua da barbearia"
+														className="p-2 text-white rounded-md bg-secondary"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+
+								<div className="grow sm:min-w-72">
+									<label className="text-sm font-bold text-gray-400">
+										<span className="text-red-500">*</span> Número:
+									</label>
+									<FormField
+										control={form.control}
+										name="number"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														placeholder="Número da barbearia"
 														className="p-2 text-white rounded-md bg-secondary"
 														{...field}
 													/>
@@ -223,7 +251,7 @@ export const CreateBarbershop = () => {
 							<div className="flex flex-row flex-wrap justify-between gap-4">
 								<div className="grow sm:min-w-72">
 									<label className="text-sm font-bold text-gray-400">
-                    Telefone 1:
+										<span className="text-red-500">*</span> Telefone 1:
 									</label>
 									<FormField
 										control={form.control}
@@ -248,7 +276,7 @@ export const CreateBarbershop = () => {
 
 								<div className="grow sm:min-w-72">
 									<label className="text-sm font-bold text-gray-400">
-                    Telefone 2:
+										<span className="text-red-500">*</span> Telefone 2:
 									</label>
 									<FormField
 										control={form.control}

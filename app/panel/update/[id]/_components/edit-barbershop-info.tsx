@@ -50,9 +50,14 @@ const BarbershopDataSchema = z.object({
 		})
 		.optional(),
 
-	address: z
+	street: z
 		.string()
-		.min(3, 'Endereço da barbearia deve ter no mínimo 3 caracteres')
+		.min(3, 'Rua da barbearia deve ter no mínimo 3 caracteres')
+		.optional(),
+
+	number: z
+		.string()
+		.min(1, 'Número da barbearia é obrigatório')
 		.optional(),
 
 	about: z
@@ -188,17 +193,40 @@ export const EditBarbershopInfo = ({ barbershop }: BarbershopDataProps) => {
 
 								<div className="grow sm:min-w-72">
 									<label className="text-sm font-bold text-gray-400">
-                    Endereço:
+                    Rua:
 									</label>
 									<FormField
 										control={form.control}
-										name="address"
+										name="street"
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
 													<Input
-														placeholder="Endereço da barbearia"
-														defaultValue={barbershop.address}
+														placeholder="Rua da barbearia"
+														defaultValue={barbershop.street}
+														className="p-2 text-white rounded-md bg-secondary"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+
+								<div className="grow sm:min-w-72">
+									<label className="text-sm font-bold text-gray-400">
+                    Número:
+									</label>
+									<FormField
+										control={form.control}
+										name="number"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input
+														placeholder="Número da barbearia"
+														defaultValue={barbershop.number}
 														className="p-2 text-white rounded-md bg-secondary"
 														{...field}
 													/>

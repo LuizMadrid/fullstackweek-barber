@@ -165,8 +165,9 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 											<h3 className="text-base font-bold text-white md:text-lg">
 												{booking.barbershop.name}
 											</h3>
+											{/* Exibir endereço completo da barbearia */}
 											<p className="text-xs text-gray-400 md:text-sm">
-												{booking.barbershop.address}
+												{booking.barbershop.street}, {booking.barbershop.number}
 											</p>
 										</div>
 									</CardContent>
