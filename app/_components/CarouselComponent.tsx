@@ -1,28 +1,28 @@
 import {
-  Carousel,
-  CarouselContent,
-  CarouselNext,
-  CarouselPrevious,
-} from "./ui/carousel";
+	Carousel,
+	CarouselContent,
+	CarouselNext,
+	CarouselPrevious,
+} from './ui/carousel';
 
 interface CarouselComponentProps {
   children: React.ReactNode;
 }
 
 export const CarouselComponent = ({ children }: CarouselComponentProps) => {
-  return (
-    <Carousel
-      opts={{
-        dragFree: true,
-        loop: true,
-        align: "start",
-      }}
-    >
-      <CarouselPrevious className="hidden 2md:flex" />
+	return (
+		<Carousel
+			opts={{
+				dragFree: true,
+				loop: true,
+				align: 'start',
+			}}
+		>
+			<CarouselPrevious className="hidden 2md:flex" />
 
-      <CarouselContent>{children}</CarouselContent>
+			<CarouselContent>{children}</CarouselContent>
 
-      <CarouselNext className="hidden 2md:flex" />
-    </Carousel>
-  );
+			<CarouselNext className="hidden 2md:flex" />
+		</Carousel>
+	);
 };
